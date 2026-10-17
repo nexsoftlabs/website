@@ -6,9 +6,9 @@ Production-quality marketing site for [NexSoft Labs](https://nexsoftlabs.in) —
 
 - React 19 + TypeScript (strict)
 - Vite
-- Tailwind CSS 4 + FlyonUI 2.x
+- Tailwind CSS 4 + FlyonUI (form primitives)
 - React Router
-- Framer Motion, Lucide React
+- Lucide React
 - React Hook Form + Zod
 - react-helmet-async for SEO metadata
 
@@ -35,18 +35,14 @@ Open the URL shown in the terminal (typically `http://localhost:5173`).
 
 Copy `.env.example` to `.env.local` (not committed):
 
-- **`VITE_CONTACT_API_URL`** — HTTPS endpoint that accepts JSON POST enquiries from the browser. Implement server-side validation, rate limiting, and email delivery (e.g. Resend, SendGrid, or your API).
-- **`VITE_CONTACT_MOCK`** — When `true`, submissions are mocked even outside dev (use only for demos).
+- **`VITE_CONTACT_API_URL`** — HTTPS URL of the contact API (`/contact` on the Render service in `api/`). When set, submissions are emailed to **`labs.nexsoft@gmail.com`**. See `api/README.md` for Gmail App Password setup on Render.
 
 ### Contact form behavior
 
-| Environment | `VITE_CONTACT_API_URL` | Result |
-|-------------|--------------------------|--------|
-| Development | unset                    | Mock mode — console log only, UI explains this |
-| Production  | set                      | POST to your API |
-| Production  | unset                    | Submission fails with a clear message |
-
-Never embed API keys in frontend env vars. Secrets belong on the server.
+| `VITE_CONTACT_API_URL` | Result |
+|------------------------|--------|
+| Set                    | The browser POSTs the enquiry. On success, the message is delivered to the NexSoft Gmail inbox. |
+| Unset                  | The form opens the visitor’s email app with a message to `hello@nexsoftlabs.in` already filled in. Nothing is sent until they press send, and the page says so. |
 
 ## Deployment
 
@@ -67,14 +63,13 @@ After `npm run build`, deploy the `dist/` folder. Example Apache/nginx: serve `i
 3. Set canonical URLs in `src/lib/seo.ts` if the domain differs.
 4. Update `public/sitemap.xml` and `public/robots.txt` if needed.
 
-## Placeholders requiring real information
+## Still needs owner confirmation
 
-- [ ] Verified `hello@nexsoftlabs.in` mailbox and contact form backend
-- [ ] LinkedIn and GitHub URLs in the footer
-- [ ] Privacy Policy and Terms reviewed by legal counsel
-- [ ] Organization structured data (address/phone only if accurate)
-- [ ] Social profiles and OG image assets (optional PNG upgrade from SVG)
-- [ ] Analytics (only with disclosure and consent if required)
+- [ ] Render env `GMAIL_APP_PASSWORD` for `labs.nexsoft@gmail.com`, then `VITE_CONTACT_API_URL` on Vercel pointing at the deployed `api/` service.
+- [ ] Privacy Policy and Terms reviewed by counsel. Both pages are drafts and are `noindex`.
+- [ ] FAQ answer on code and IP ownership (“the code we create for you belongs to you”).
+- [ ] Technology list on the homepage, including the mobile stack and the cloud FAQ mention of AWS.
+- [ ] Analytics, only with disclosure and consent if required.
 
 ## Project structure
 
