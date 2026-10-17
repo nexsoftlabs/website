@@ -2,43 +2,38 @@ import type { FaqItem } from '@/types'
 
 export const faqItems: FaqItem[] = [
   {
-    question: 'What types of businesses do you work with?',
+    question: 'How much does a custom software project cost?',
     answer:
-      'We partner with startups building their first product, SMBs digitizing operations, and established organizations modernizing legacy systems. Engagements are tailored to your stage, constraints, and internal capabilities.',
+      'It depends on scope, integrations and how much already exists. After an initial conversation we provide a phased estimate with clear assumptions and ranges, so you can choose what to build first. Many projects start with a smaller first phase that proves value before larger investment.',
   },
   {
-    question: 'Can you help with an existing application?',
+    question: 'How long until we have something we can use?',
     answer:
-      'Yes. We frequently work on brownfield products—improving performance, extending features, refactoring critical areas, and planning modernization without unnecessary disruption.',
+      'We plan for an early, usable release rather than one big launch. Your proposal sets out each phase and what it delivers, and you see working software at the end of every development cycle, not just at the finish line.',
   },
   {
-    question: 'Can you work with our existing engineering team?',
+    question: 'Who owns the code and the intellectual property?',
     answer:
-      'Absolutely. We collaborate with in-house teams through shared repositories, reviews, and ceremonies. Our goal is to strengthen your delivery capacity, not replace your team.',
+      'Ownership is agreed in writing before work begins. Our standard position is that the code, documentation and infrastructure we create for you belong to you, and you hold the accounts and access to them.',
+  },
+  {
+    question: 'Can you work on an existing application, or alongside our team?',
+    answer:
+      'Yes. We regularly start by reviewing an existing codebase and then improve, extend or gradually modernize it. We are equally comfortable joining your repositories, rituals and review process as an extension of your in-house team.',
   },
   {
     question: 'Do you build MVPs for startups?',
     answer:
-      'We help founders validate ideas with focused MVPs that emphasize learning and maintainability. Scope is intentionally constrained so you can ship, gather feedback, and iterate.',
+      'We do, with a deliberately narrow scope: the smallest product that tests your riskiest assumption with real users, built on foundations you will not need to throw away once it works.',
   },
   {
-    question: 'Can you help us choose the right technology stack?',
+    question: 'What happens after launch?',
     answer:
-      'Stack decisions should reflect your team, timeline, compliance needs, and product goals. We provide advisory and architecture guidance so you can choose with confidence.',
-  },
-  {
-    question: 'How is a software project estimated?',
-    answer:
-      'After understanding goals, scope, and constraints, we outline phases, assumptions, and effort ranges. Estimates are transparent about unknowns and include options for phased delivery.',
-  },
-  {
-    question: 'Do you provide ongoing maintenance and support?',
-    answer:
-      'Support models can be discussed based on your product needs—ranging from advisory retainers to hands-on maintenance. Specific SLAs and coverage are agreed per engagement.',
+      'You receive documentation, access and a handover session. From there, support can range from occasional advisory to an ongoing engineering partnership. Coverage and response expectations are agreed per engagement, never assumed.',
   },
   {
     question: 'How do we get started?',
     answer:
-      'Share your goals through our contact form or email. We schedule a discovery conversation to understand the problem, timeline, and fit—then propose a clear next step.',
+      'Tell us about your goals through the contact form or by email. We will reply to arrange a conversation, ask the questions that shape a good plan, and suggest a practical next step, whether or not that involves working with us.',
   },
 ]

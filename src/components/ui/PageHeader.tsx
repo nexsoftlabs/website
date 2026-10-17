@@ -6,21 +6,16 @@ interface PageHeaderProps {
   eyebrow?: string
 }
 
+/** Light, compact header for utility pages such as legal documents. */
 export function PageHeader({ title, description, eyebrow }: PageHeaderProps) {
   return (
-    <div className="border-b border-border-light bg-surface-elevated py-14 md:py-16">
-      <Container className="max-w-3xl">
-        {eyebrow && (
-          <p className="text-xs font-semibold tracking-[0.2em] text-indigo-brand uppercase">
-            {eyebrow}
-          </p>
-        )}
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-          {title}
-        </h1>
-        {description && (
-          <p className="mt-4 text-lg leading-relaxed text-muted">{description}</p>
-        )}
+    <div className="border-b border-hairline bg-surface">
+      <Container className="py-14 md:py-20">
+        <div className="max-w-3xl">
+          {eyebrow && <p className="eyebrow text-brand">{eyebrow}</p>}
+          <h1 className="display-md mt-4 text-heading">{title}</h1>
+          {description && <p className="mt-4 text-lg leading-relaxed text-muted">{description}</p>}
+        </div>
       </Container>
     </div>
   )

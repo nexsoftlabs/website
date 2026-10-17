@@ -1,7 +1,11 @@
+import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { insights } from '@/data/insights'
+import { CTASection } from '@/components/sections/CTASection'
+import { ArticleCover } from '@/components/ui/ArticleCover'
 import { Container } from '@/components/ui/Container'
-import { PageHeader } from '@/components/ui/PageHeader'
+import { PageHero } from '@/components/ui/PageHero'
+import { Reveal } from '@/components/ui/Reveal'
 import { Seo } from '@/components/ui/Seo'
 
 export function InsightsPage() {
@@ -9,47 +13,52 @@ export function InsightsPage() {
     <>
       <Seo
         title="Insights"
-        description="Articles on SaaS architecture, legacy modernization, and practical AI adoption from NexSoft Labs."
+        description="Practical perspectives on SaaS architecture, legacy modernization and AI adoption for product and engineering leaders."
         path="/insights"
       />
-      <PageHeader
+      <PageHero
+        breadcrumbs={[{ label: 'Insights' }]}
         eyebrow="Insights"
-        title="Thinking beyond the code"
-        description="Perspectives on architecture, modernization, and automation for product and engineering leaders."
+        title="Thinking beyond the code."
+        description="Practical perspectives on architecture, modernization and automation—written for the people who have to make the decisions."
       />
-      <Container className="section-padding max-w-3xl">
-        <ul className="divide-y divide-border-light">
-          {insights.map((article) => (
-            <li key={article.slug} className="py-8 first:pt-0">
-              <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
-                <span className="font-medium text-indigo-brand">{article.category}</span>
-                <span>·</span>
-                <time dateTime={article.publishedAt}>
-                  {new Date(article.publishedAt).toLocaleDateString('en-IN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </time>
-                <span>·</span>
-                <span>{article.readingTimeMinutes} min read</span>
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold text-ink">
-                <Link to={`/insights/${article.slug}`} className="hover:text-indigo-brand">
-                  {article.title}
-                </Link>
-              </h2>
-              <p className="mt-3 text-muted leading-relaxed">{article.summary}</p>
-              <Link
-                to={`/insights/${article.slug}`}
-                className="mt-4 inline-block text-sm font-medium text-indigo-brand hover:underline"
-              >
-                Read article
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Container>
+
+      <section className="section bg-surface" aria-label="Articles">
+        <Container>
+          <ul className="grid gap-x-10 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+            {insights.map((article, i) => (
+              <Reveal as="li" key={article.slug} delay={0.06 * i}>
+                <article>
+                  <Link to={`/insights/${article.slug}`} className="group block">
+                    <ArticleCover
+                      category={article.category}
+                      className="aspect-[4/3] transition-opacity group-hover:opacity-90"
+                    />
+                    <p className="mt-6 text-sm text-muted">
+                      <span className="font-medium text-brand">{article.category}</span> ·{' '}
+                      {article.readingTimeMinutes} min read
+                    </p>
+                    <h2 className="mt-3 text-2xl leading-snug font-semibold tracking-[-0.02em] text-balance text-heading group-hover:text-brand">
+                      {article.title}
+                    </h2>
+                    <p className="mt-3 leading-relaxed text-muted">{article.summary}</p>
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand">
+                      Read article
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                    </span>
+                  </Link>
+                </article>
+              </Reveal>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      <CTASection
+        title="Have a question these articles didn’t answer?"
+        text="If you are weighing an architecture, modernization or automation decision, we are happy to talk it through."
+        ctaLabel="Start a Conversation"
+      />
     </>
   )
 }

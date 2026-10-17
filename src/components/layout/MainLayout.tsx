@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { AnnouncementBar } from '@/components/layout/AnnouncementBar'
 import { Footer } from '@/components/layout/Footer'
 import { Navbar } from '@/components/layout/Navbar'
 import { RouteScrollManager } from '@/components/layout/RouteScrollManager'
@@ -11,7 +10,6 @@ async function loadFlyonUI() {
 
 export function MainLayout() {
   const location = useLocation()
-  const isHome = location.pathname === '/'
 
   useEffect(() => {
     void loadFlyonUI()
@@ -27,9 +25,8 @@ export function MainLayout() {
   return (
     <div className="flex min-h-screen flex-col">
       <RouteScrollManager />
-      {isHome && <AnnouncementBar />}
       <Navbar />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
         <Outlet />
       </main>
       <Footer />

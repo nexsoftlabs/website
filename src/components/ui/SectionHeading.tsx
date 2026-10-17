@@ -3,10 +3,11 @@ import type { ReactNode } from 'react'
 interface SectionHeadingProps {
   eyebrow?: string
   title: ReactNode
-  description?: string
+  description?: ReactNode
   align?: 'left' | 'center'
   dark?: boolean
   className?: string
+  as?: 'h1' | 'h2'
 }
 
 export function SectionHeading({
@@ -16,31 +17,22 @@ export function SectionHeading({
   align = 'left',
   dark = false,
   className = '',
+  as: Heading = 'h2',
 }: SectionHeadingProps) {
-  const alignClass = align === 'center' ? 'text-center mx-auto max-w-2xl' : 'max-w-2xl'
+  const alignClass = align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'
 
   return (
     <div className={`${alignClass} ${className}`}>
       {eyebrow && (
-        <p
-          className={`mb-3 text-xs font-semibold tracking-[0.2em] uppercase ${
-            dark ? 'text-cyan-brand/90' : 'text-indigo-brand'
-          }`}
-        >
-          {eyebrow}
-        </p>
+        <p className={`eyebrow mb-5 ${dark ? 'text-blue-soft' : 'text-brand'}`}>{eyebrow}</p>
       )}
-      <h2
-        className={`text-3xl font-semibold tracking-tight md:text-4xl ${
-          dark ? 'text-white' : 'text-ink'
-        }`}
-      >
+      <Heading className={`display-lg text-balance ${dark ? 'text-white' : 'text-heading'}`}>
         {title}
-      </h2>
+      </Heading>
       {description && (
         <p
-          className={`mt-4 text-base leading-relaxed md:text-lg ${
-            dark ? 'text-slate-300' : 'text-muted'
+          className={`lede mt-5 max-w-2xl text-pretty ${align === 'center' ? 'mx-auto' : ''} ${
+            dark ? 'text-[#b8c5da]' : 'text-muted'
           }`}
         >
           {description}

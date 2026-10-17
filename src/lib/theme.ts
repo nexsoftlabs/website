@@ -20,7 +20,7 @@ export function readStoredPreference(): ThemePreference {
   } catch {
     /* ignore */
   }
-  return 'system'
+  return 'light'
 }
 
 export function applyDocumentTheme(resolved: ResolvedTheme): void {
@@ -30,7 +30,7 @@ export function applyDocumentTheme(resolved: ResolvedTheme): void {
 
   const meta = document.querySelector('meta[name="theme-color"]')
   if (meta) {
-    meta.setAttribute('content', resolved === 'dark' ? '#0B1020' : '#F8FAFC')
+    meta.setAttribute('content', resolved === 'dark' ? '#08111F' : '#0B1730')
   }
 
   const lightController = document.querySelector<HTMLInputElement>(

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { canonicalPath, pageTitle, SITE_NAME, SITE_URL, type PageMeta } from '@/lib/seo'
+import { canonicalPath, DEFAULT_TAGLINE, OG_IMAGE, pageTitle, SITE_NAME, type PageMeta } from '@/lib/seo'
 
 interface SeoProps extends PageMeta {
   noIndex?: boolean
@@ -20,10 +20,14 @@ export function Seo({ title, description, path, ogType = 'website', noIndex }: S
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:type" content={ogType} />
-      <meta property="og:image" content={`${SITE_URL}/og/og-default.svg`} />
+      <meta property="og:image" content={OG_IMAGE} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={`${SITE_NAME} — ${DEFAULT_TAGLINE}`} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={OG_IMAGE} />
     </Helmet>
   )
 }

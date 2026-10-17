@@ -3,10 +3,10 @@ import type { Service } from '@/types'
 export const services: Service[] = [
   {
     slug: 'software-consulting',
-    title: 'Software Consulting & Technology Advisory',
-    shortTitle: 'Software Consulting',
+    title: 'Software Consulting & Architecture',
+    shortTitle: 'Software Consulting & Architecture',
     summary:
-      'Make confident technology decisions with architecture reviews, technical roadmaps, and expert guidance.',
+      'Make major technology decisions with a clear architecture, an honest view of trade-offs and a roadmap your team can act on.',
     description:
       'We help leadership teams and product owners evaluate options, reduce risk, and align technology choices with business outcomes. From discovery workshops to architecture reviews, our consulting engagements are designed to create clarity before major investments.',
     highlights: [
@@ -26,9 +26,9 @@ export const services: Service[] = [
   {
     slug: 'web-development',
     title: 'Custom Web Application Development',
-    shortTitle: 'Web Application Development',
+    shortTitle: 'Custom Web Application Development',
     summary:
-      'Build secure, responsive applications designed around your customers and business workflows.',
+      'Replace spreadsheets, workarounds and off-the-shelf compromises with web applications shaped around how your business actually operates.',
     description:
       'We design and develop web applications that balance user experience, performance, and long-term maintainability. Whether you need an internal operations tool or a customer-facing product, we engineer solutions that fit how your business actually works.',
     highlights: [
@@ -48,9 +48,9 @@ export const services: Service[] = [
   {
     slug: 'mobile-app-development',
     title: 'Mobile Application Development',
-    shortTitle: 'Mobile App Development',
+    shortTitle: 'Mobile Application Development',
     summary:
-      'Create intuitive mobile experiences that make your products accessible wherever users are.',
+      'Put your service in customers’ and field teams’ hands with mobile apps that stay fast, secure and connected to your core systems.',
     description:
       'We help teams ship mobile experiences that feel native to users while remaining practical to build and maintain. From customer apps to field tools, we focus on clarity, performance, and integration with your existing systems.',
     highlights: [
@@ -72,7 +72,7 @@ export const services: Service[] = [
     title: 'SaaS Product Engineering',
     shortTitle: 'SaaS Product Engineering',
     summary:
-      'Turn product ideas into scalable, maintainable software platforms.',
+      'Take a subscription product from validated idea to dependable platform, with tenancy, billing and permissions designed in from day one.',
     description:
       'SaaS products demand thoughtful multi-tenancy, billing, permissions, and observability from early stages. We partner with founders and product teams to engineer platforms that can grow without constant rewrites.',
     highlights: [
@@ -94,7 +94,7 @@ export const services: Service[] = [
     title: 'AI Integration & Workflow Automation',
     shortTitle: 'AI & Workflow Automation',
     summary:
-      'Integrate useful AI capabilities and automate repetitive business processes.',
+      'Remove repetitive manual work by adding AI and automation where it is reliable, reviewable and measurable.',
     description:
       'We identify practical places where AI and automation reduce manual work without compromising quality or compliance. Our approach emphasizes measurable workflow improvements, human oversight, and integration with tools you already use.',
     highlights: [
@@ -113,10 +113,10 @@ export const services: Service[] = [
   },
   {
     slug: 'cloud-modernization',
-    title: 'Cloud Architecture & Modernization',
-    shortTitle: 'Cloud & Modernization',
+    title: 'Cloud, APIs & Modernization',
+    shortTitle: 'Cloud, APIs & Modernization',
     summary:
-      'Improve reliability, scalability, deployment workflows, and infrastructure efficiency.',
+      'Connect systems through well-designed APIs and move aging software onto infrastructure that deploys predictably and scales with demand.',
     description:
       'We help teams modernize infrastructure and delivery practices so software ships with confidence. From containerization to CI/CD pipelines, we focus on changes that improve reliability without unnecessary complexity.',
     highlights: [

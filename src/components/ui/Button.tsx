@@ -1,14 +1,17 @@
+import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'outline-light'
-type Size = 'md' | 'sm'
+type Variant = 'primary' | 'secondary' | 'ghost' | 'outline-light' | 'light'
+type Size = 'lg' | 'md' | 'sm'
 
 interface ButtonBaseProps {
   children: ReactNode
   variant?: Variant
   size?: Size
   className?: string
+  /** Show a trailing arrow that nudges on hover */
+  arrow?: boolean
 }
 
 interface ButtonAsButton extends ButtonBaseProps {
@@ -35,27 +38,41 @@ type ButtonProps = ButtonAsButton | ButtonAsLink | ButtonAsAnchor
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-indigo-brand text-white hover:bg-[#5248e6] shadow-sm hover:shadow-md border border-transparent',
+    'bg-blue-corporate text-white hover:bg-blue-corporate-hover border border-blue-corporate hover:border-blue-corporate-hover',
   secondary:
-    'bg-surface-elevated text-ink border border-border-light hover:border-indigo-brand/40 hover:text-indigo-brand',
-  ghost: 'bg-transparent text-ink hover:bg-surface-inset border border-transparent',
+    'bg-surface text-heading border border-hairline hover:border-heading/30',
+  ghost: 'bg-transparent text-heading border border-transparent hover:bg-surface-sunken',
   'outline-light':
-    'bg-transparent text-white border border-white/25 hover:bg-white/10 hover:border-white/40',
+    'bg-transparent text-white border border-white/25 hover:border-white/60 hover:bg-white/5',
+  light: 'bg-white text-navy-950 border border-white hover:bg-[#e8eef8] hover:border-[#e8eef8]',
 }
 
 const sizes: Record<Size, string> = {
-  md: 'px-5 py-2.5 text-sm font-medium rounded-xl',
-  sm: 'px-4 py-2 text-sm font-medium rounded-lg',
+  lg: 'h-12 px-6 text-[0.9375rem] rounded-lg',
+  md: 'h-11 px-5 text-sm rounded-lg',
+  sm: 'h-9 px-4 text-sm rounded-md',
 }
 
 export function Button(props: ButtonProps) {
-  const { children, variant = 'primary', size = 'md', className = '' } = props
-  const classes = `inline-flex items-center justify-center gap-2 transition-all duration-200 ${variants[variant]} ${sizes[size]} ${className}`
+  const { children, variant = 'primary', size = 'md', className = '', arrow = false } = props
+  const classes = `group/btn inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60 ${variants[variant]} ${sizes[size]} ${className}`
+
+  const content = (
+    <>
+      {children}
+      {arrow && (
+        <ArrowRight
+          className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-0.5"
+          aria-hidden="true"
+        />
+      )}
+    </>
+  )
 
   if ('to' in props && props.to) {
     return (
       <Link to={props.to} className={classes} onClick={props.onClick}>
-        {children}
+        {content}
       </Link>
     )
   }
@@ -68,7 +85,7 @@ export function Button(props: ButtonProps) {
         className={classes}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
-        {children}
+        {content}
       </a>
     )
   }
@@ -76,7 +93,7 @@ export function Button(props: ButtonProps) {
   const { type = 'button', disabled, onClick } = props as ButtonAsButton
   return (
     <button type={type} disabled={disabled} onClick={onClick} className={classes}>
-      {children}
+      {content}
     </button>
   )
 }

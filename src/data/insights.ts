@@ -8,7 +8,6 @@ export const insights: InsightArticle[] = [
     title: 'How to Choose the Right Architecture for a Growing SaaS Product',
     summary:
       'Early architectural choices shape how fast you can ship, how safely you can scale, and how painful migrations become later. Here is a practical framework for growing products.',
-    publishedAt: '2026-02-15',
     body: [
       {
         type: 'paragraph',
@@ -60,7 +59,6 @@ export const insights: InsightArticle[] = [
     title: 'When Should a Business Modernize Its Legacy Application?',
     summary:
       'Modernization is expensive when mistimed and costly when delayed. Learn signals that indicate when incremental change beats a big-bang rewrite.',
-    publishedAt: '2026-01-28',
     body: [
       {
         type: 'paragraph',
@@ -103,7 +101,6 @@ export const insights: InsightArticle[] = [
     title: 'Practical Ways to Introduce AI into Existing Workflows',
     summary:
       'Useful AI adoption starts with workflow clarity, not model hype. A grounded approach to automation that keeps humans in the loop.',
-    publishedAt: '2026-03-05',
     body: [
       {
         type: 'paragraph',

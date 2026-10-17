@@ -1,53 +1,88 @@
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
-import { SectionHeading } from '@/components/ui/SectionHeading'
 
-const steps = [
-  { title: 'Discover', text: 'Understand the business problem, objectives, users, and constraints.' },
-  { title: 'Define', text: 'Agree on scope, requirements, priorities, and success criteria.' },
-  { title: 'Design', text: 'Shape user journeys, system architecture, and technical direction.' },
-  { title: 'Build', text: 'Develop in manageable iterations with code reviews and quality checks.' },
-  { title: 'Launch', text: 'Prepare deployment, testing, documentation, and handover.' },
-  { title: 'Evolve', text: 'Improve the product based on feedback, performance, and changing needs.' },
+const processStages = [
+  {
+    title: 'Discover',
+    duration: 'Understand first',
+    text: 'We interview the people who will use and fund the software, map today’s workflow and agree what success means in measurable terms.',
+    outputs: ['Problem statement & goals', 'Scope options with trade-offs', 'Risks and open questions'],
+  },
+  {
+    title: 'Design',
+    duration: 'Before code is written',
+    text: 'User journeys, interface prototypes and the system architecture are shaped together, so what is easy to use is also sensible to build.',
+    outputs: ['Clickable prototype', 'Architecture & data model', 'Phased delivery plan'],
+  },
+  {
+    title: 'Engineer',
+    duration: 'Iterative releases',
+    text: 'Short cycles with a working demo at the end of each. Code review, automated tests and a staging environment are standard, not extras.',
+    outputs: ['Regular demos & progress notes', 'Tested, reviewed code', 'Production deployment'],
+  },
+  {
+    title: 'Evolve',
+    duration: 'After launch',
+    text: 'We hand over documentation and access, then keep improving from real usage, whether alongside your team or as your ongoing engineering partner.',
+    outputs: ['Handover & documentation', 'Monitoring & support options', 'Roadmap for what comes next'],
+  },
 ]
 
 export function ProcessSection() {
   return (
-    <section className="section-padding bg-surface-elevated">
+    <section className="section bg-canvas" aria-labelledby="process-heading">
       <Container>
-        <Reveal>
-          <SectionHeading
-            title="A clear path from idea to impact."
-            align="center"
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+          <Reveal className="lg:col-span-6">
+            <p className="eyebrow text-brand">How we work</p>
+            <h2 id="process-heading" className="display-lg mt-5 text-balance text-heading">
+              Clarity at every stage.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">
+            <p className="leading-relaxed text-muted">
+              You always know what is being built, why, and what happens next: written updates,
+              open decisions and working software you can see at the end of every cycle.
+            </p>
+          </Reveal>
+        </div>
+
+        <ol className="relative mt-16 grid gap-12 lg:mt-24 lg:grid-cols-4 lg:gap-8">
+          <span
+            className="absolute top-[11px] right-0 left-0 hidden h-px bg-hairline lg:block"
+            aria-hidden="true"
           />
-        </Reveal>
-        <ol className="mt-14 grid gap-0 md:grid-cols-6 md:gap-4">
-          {steps.map((step, i) => (
-            <Reveal key={step.title} delay={i * 0.04}>
-              <li className="relative flex gap-4 pb-10 md:flex-col md:pb-0 md:text-center">
-                {i < steps.length - 1 && (
-                  <span
-                    className="absolute top-5 left-[1.125rem] h-[calc(100%-1.25rem)] w-px bg-border-light md:hidden"
-                    aria-hidden="true"
-                  />
-                )}
-                <span
-                  className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-indigo-brand bg-surface-elevated text-sm font-semibold text-indigo-brand md:mx-auto"
-                >
-                  {i + 1}
-                </span>
-                <div className="md:mt-4">
-                  <h3 className="font-semibold text-ink">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{step.text}</p>
-                </div>
-                {i < steps.length - 1 && (
-                  <span
-                    className="absolute top-4 right-0 hidden h-px w-full translate-x-1/2 bg-border-light md:block"
-                    style={{ width: 'calc(100% + 1rem)' }}
-                    aria-hidden="true"
-                  />
-                )}
-              </li>
+          <span
+            className="absolute top-0 bottom-0 left-[11px] w-px bg-hairline lg:hidden"
+            aria-hidden="true"
+          />
+          {processStages.map((stage, i) => (
+            <Reveal as="li" key={stage.title} delay={i * 0.08} className="relative pl-12 lg:pl-0">
+              <span
+                className="absolute top-0 left-0 grid h-[23px] w-[23px] place-items-center rounded-full border border-heading bg-canvas"
+                aria-hidden="true"
+              >
+                <span className="h-[7px] w-[7px] rounded-full bg-blue-corporate" />
+              </span>
+              <div className="lg:pt-12">
+                <p className="font-mono text-xs tracking-wider text-muted">
+                  0{i + 1} — {stage.duration}
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-heading">
+                  {stage.title}
+                </h3>
+                <p className="mt-3 max-w-[36ch] leading-relaxed text-muted">{stage.text}</p>
+                <ul className="mt-6 space-y-2 border-t border-hairline pt-5 text-sm text-body">
+                  {stage.outputs.map((o) => (
+                    <li key={o} className="flex gap-2.5">
+                      <svg viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0 text-blue-corporate" aria-hidden="true">
+                        <path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      {o}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Reveal>
           ))}
         </ol>

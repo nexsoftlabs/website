@@ -1,13 +1,12 @@
-import { ContactCTA } from '@/components/sections/ContactCTA'
+import { BusinessValueSection } from '@/components/sections/BusinessValueSection'
+import { CTASection } from '@/components/sections/CTASection'
+import { ExpertiseSection } from '@/components/sections/ExpertiseSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { InsightsSection } from '@/components/sections/InsightsSection'
-import { PortfolioSection } from '@/components/sections/PortfolioSection'
 import { ProcessSection } from '@/components/sections/ProcessSection'
-import { ServicesSection } from '@/components/sections/ServicesSection'
 import { ShowcaseSection } from '@/components/sections/ShowcaseSection'
 import { TechnologySection } from '@/components/sections/TechnologySection'
-import { ValueProposition } from '@/components/sections/ValueProposition'
 import { WhySection } from '@/components/sections/WhySection'
 import { OrganizationStructuredData } from '@/components/StructuredData'
 import { Seo } from '@/components/ui/Seo'
@@ -19,16 +18,15 @@ export function HomePage() {
       <Seo title={SITE_NAME} description={DEFAULT_DESCRIPTION} path="/" />
       <OrganizationStructuredData />
       <HeroSection />
-      <ValueProposition />
-      <ServicesSection />
+      <BusinessValueSection />
+      <ExpertiseSection />
       <ShowcaseSection />
-      <WhySection />
       <ProcessSection />
-      <PortfolioSection />
+      <WhySection />
       <TechnologySection />
       <InsightsSection />
       <FAQSection />
-      <ContactCTA />
+      <CTASection />
     </>
   )
 }

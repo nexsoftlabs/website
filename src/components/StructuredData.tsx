@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/seo'
+import { CONTACT_EMAIL, DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/seo'
 
 export function OrganizationStructuredData() {
   const data = {
@@ -7,8 +7,9 @@ export function OrganizationStructuredData() {
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE_URL,
+    logo: `${SITE_URL}/favicon.svg`,
     description: DEFAULT_DESCRIPTION,
-    email: 'hello@nexsoftlabs.in',
+    email: CONTACT_EMAIL,
   }
 
   return (

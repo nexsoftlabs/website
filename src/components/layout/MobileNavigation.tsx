@@ -1,120 +1,139 @@
-import { Link, useLocation } from 'react-router-dom'
-import { serviceNavItems } from '@/data/services'
+import { ArrowRight, X } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { featuredServices } from '@/data/services'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
+import { ServiceGlyph } from '@/components/ui/ServiceGlyph'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
-import { useTheme } from '@/context/ThemeProvider'
 
 interface MobileNavigationProps {
   open: boolean
   onClose: () => void
-  surface?: 'dark' | 'light'
 }
 
 const links = [
-  { label: 'Services', href: '/services' },
-  { label: 'Our Work', href: '/work' },
+  { label: 'All services', href: '/services' },
+  { label: 'Work', href: '/work' },
   { label: 'About', href: '/about' },
   { label: 'Insights', href: '/insights' },
 ]
 
-export function MobileNavigation({ open, onClose, surface = 'light' }: MobileNavigationProps) {
-  const location = useLocation()
-  const { resolved } = useTheme()
-  const drawerDark = resolved === 'dark' || surface === 'dark'
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+export function MobileNavigation({ open, onClose }: MobileNavigationProps) {
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const panel = panelRef.current
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    panel?.querySelector<HTMLElement>(FOCUSABLE)?.focus()
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        onClose()
+        return
+      }
+      if (e.key !== 'Tab' || !panel) return
+      const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE))
+      if (items.length === 0) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open, onClose])
 
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
-      <button
-        type="button"
-        className="absolute inset-0 bg-midnight/70 backdrop-blur-sm transition-opacity"
-        aria-label="Close menu"
+    <div className="fixed inset-0 z-50 lg:hidden">
+      <div
+        className="motion-opacity-in-0 motion-duration-200 absolute inset-0 bg-navy-950/60 backdrop-blur-[2px]"
+        aria-hidden="true"
         onClick={onClose}
       />
-      <nav
-        className={`absolute top-0 right-0 flex h-full w-[min(100%,20rem)] flex-col border-l shadow-xl ${
-          drawerDark
-            ? 'border-white/10 bg-midnight text-slate-200'
-            : 'border-border-light bg-surface-elevated'
-        }`}
-        aria-label="Mobile"
+      <div
+        ref={panelRef}
+        id="mobile-navigation"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
+        className="motion-translate-x-in-[24px] motion-opacity-in-0 motion-duration-300 motion-ease-[cubic-bezier(0.22,1,0.36,1)] absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col bg-surface shadow-2xl"
       >
-        <div
-          className={`flex items-center justify-between border-b p-4 ${
-            drawerDark ? 'border-white/10' : 'border-border-light'
-          }`}
-        >
-          <Logo variant={drawerDark ? 'light' : 'dark'} />
+        <div className="flex h-[72px] shrink-0 items-center justify-between border-b border-hairline px-5">
+          <Logo variant="dark" onClick={onClose} />
           <button
             type="button"
             onClick={onClose}
-            className={`rounded-lg px-3 py-2 text-sm font-medium ${
-              drawerDark
-                ? 'text-slate-300 hover:bg-white/10 hover:text-white'
-                : 'text-muted hover:bg-surface-inset'
-            }`}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-heading hover:bg-surface-sunken"
+            aria-label="Close menu"
           >
-            Close
+            <X className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto p-4">
-          <ul className="space-y-1">
+
+        <nav className="flex-1 overflow-y-auto px-5 py-6" aria-label="Mobile">
+          <p className="eyebrow mb-3 text-muted">Services</p>
+          <ul className="divide-y divide-hairline border-y border-hairline">
+            {featuredServices.map((service) => (
+              <li key={service.slug}>
+                <Link
+                  to={`/services/${service.slug}`}
+                  onClick={onClose}
+                  className="flex min-h-[52px] items-center gap-3 py-3 text-[0.9375rem] font-medium text-heading"
+                >
+                  <ServiceGlyph slug={service.slug} className="h-5 w-5 shrink-0 text-muted" />
+                  {service.shortTitle}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <ul className="mt-8 space-y-1">
             {links.map((link) => (
               <li key={link.href}>
-                <Link
+                <NavLink
                   to={link.href}
+                  end
                   onClick={onClose}
-                  className={`block rounded-lg px-3 py-2.5 text-base font-medium ${
-                    location.pathname === link.href ||
-                    location.pathname.startsWith(link.href + '/')
-                      ? 'bg-indigo-brand/10 text-indigo-brand'
-                      : drawerDark
-                        ? 'text-slate-200 hover:bg-white/10'
-                        : 'text-ink hover:bg-surface-inset'
-                  }`}
+                  className={({ isActive }) =>
+                    `flex min-h-[48px] items-center justify-between text-2xl font-semibold tracking-tight ${
+                      isActive ? 'text-brand' : 'text-heading'
+                    }`
+                  }
                 >
                   {link.label}
-                </Link>
+                  <ArrowRight className="h-5 w-5 text-muted" aria-hidden="true" />
+                </NavLink>
               </li>
             ))}
           </ul>
-          <p className="mt-6 mb-2 px-3 text-xs font-semibold tracking-wide text-muted uppercase">
-            Service areas
-          </p>
-          <ul className="space-y-1">
-            {serviceNavItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  to={item.href}
-                  onClick={onClose}
-                  className={`block rounded-lg px-3 py-2 text-sm ${
-                    drawerDark
-                      ? 'text-slate-400 hover:bg-white/10 hover:text-white'
-                      : 'text-muted hover:bg-surface-inset hover:text-ink'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div
-          className={`space-y-4 border-t p-4 ${
-            drawerDark ? 'border-white/10' : 'border-border-light'
-          }`}
-        >
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-sm font-medium text-muted">Theme</span>
-            <ThemeToggle surface={drawerDark ? 'dark' : 'light'} />
+        </nav>
+
+        <div className="shrink-0 space-y-4 border-t border-hairline px-5 py-5">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-muted">Appearance</span>
+            <ThemeToggle />
           </div>
-          <Button to="/contact" className="w-full" onClick={onClose}>
+          <Button to="/contact" size="lg" arrow className="w-full" onClick={onClose}>
             Let&apos;s Talk
           </Button>
         </div>
-      </nav>
+      </div>
     </div>
   )
 }

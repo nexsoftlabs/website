@@ -1,167 +1,171 @@
-import { useState } from 'react'
+import { ArrowRight, Info } from 'lucide-react'
+import { useRef, useState, type KeyboardEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { showcaseTabs } from '@/data/showcase'
+import { getServiceBySlug } from '@/data/services'
+import type { ShowcaseId } from '@/types'
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
-import { SectionHeading } from '@/components/ui/SectionHeading'
+import { ConceptMockup } from '@/components/mockups/ConceptMockups'
 
-function ShowcaseMockup({ tabId }: { tabId: string }) {
-  const base = 'h-full min-h-[220px] rounded-xl border border-border-light bg-gradient-to-br p-4'
-  if (tabId === 'web') {
-    return (
-      <div className={`${base} from-indigo-brand/10 to-off-white`}>
-        <div className="grid h-full grid-cols-4 gap-2">
-          <div className="col-span-1 space-y-2 rounded-lg bg-surface-elevated p-2 shadow-sm">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-2 rounded bg-border-light" />
-            ))}
-          </div>
-          <div className="col-span-3 rounded-lg bg-surface-elevated p-3 shadow-sm">
-            <div className="h-3 w-24 rounded bg-indigo-brand/30" />
-            <div className="mt-3 grid grid-cols-3 gap-2">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-16 rounded-lg bg-surface-page" />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-  if (tabId === 'saas') {
-    return (
-      <div className={`${base} from-violet-brand/10 to-off-white`}>
-        <div className="flex h-full flex-col rounded-lg bg-surface-elevated p-3 shadow-sm">
-          <div className="flex justify-between">
-            <div className="h-2 w-20 rounded bg-ink/20" />
-            <div className="h-5 w-16 rounded-full bg-indigo-brand/20" />
-          </div>
-          <div className="mt-4 flex-1 rounded-lg border border-dashed border-border-light" />
-        </div>
-      </div>
-    )
-  }
-  if (tabId === 'mobile') {
-    return (
-      <div className={`${base} flex items-center justify-center from-cyan-brand/10 to-off-white`}>
-        <div className="h-[200px] w-[110px] rounded-[1.25rem] border-4 border-border-light bg-surface-elevated p-2 shadow-md">
-          <div className="h-full rounded-xl bg-surface-page p-2">
-            <div className="h-2 w-12 rounded bg-indigo-brand/30" />
-            <div className="mt-3 space-y-2">
-              <div className="h-8 rounded-lg bg-surface-elevated shadow-sm" />
-              <div className="h-8 rounded-lg bg-surface-elevated shadow-sm" />
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
+export function ConceptLabel({ tone = 'light' }: { tone?: 'light' | 'dark' }) {
   return (
-    <div className={`${base} from-cyan-brand/15 to-indigo-brand/5`}>
-      <div className="space-y-2">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="flex items-center gap-2 rounded-lg bg-surface-elevated p-2 shadow-sm">
-            <div className="h-6 w-6 rounded bg-cyan-brand/30" />
-            <div className="flex-1 space-y-1">
-              <div className="h-1.5 w-full rounded bg-border-light" />
-              <div className="h-1.5 w-2/3 rounded bg-border-light" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium ${
+        tone === 'dark' ? 'bg-white/10 text-[#d5deeb]' : 'bg-surface text-heading ring-1 ring-hairline'
+      }`}
+    >
+      <Info className="h-3.5 w-3.5" aria-hidden="true" />
+      Illustrative concept — not a client project
+    </span>
   )
 }
 
 export function ShowcaseSection() {
-  const [active, setActive] = useState(showcaseTabs[0].id)
+  const [active, setActive] = useState<ShowcaseId>(showcaseTabs[0].id)
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({})
   const tab = showcaseTabs.find((t) => t.id === active) ?? showcaseTabs[0]
+  const service = getServiceBySlug(tab.relatedService)
+
+  const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const last = showcaseTabs.length - 1
+    const map: Record<string, number> = {
+      ArrowRight: index === last ? 0 : index + 1,
+      ArrowLeft: index === 0 ? last : index - 1,
+      Home: 0,
+      End: last,
+    }
+    if (!(e.key in map)) return
+    e.preventDefault()
+    const next = showcaseTabs[map[e.key]]
+    setActive(next.id)
+    tabRefs.current[next.id]?.focus()
+  }
 
   return (
-    <section className="section-padding scroll-mt-28 bg-surface-elevated" id="solutions">
+    <section id="solutions" className="section scroll-mt-24 bg-surface" aria-labelledby="showcase-heading">
       <Container>
-        <Reveal>
-          <SectionHeading
-            title="One engineering partner. Multiple possibilities."
-            description="Explore illustrative concepts across web, SaaS, mobile, and automation—labeled as concepts, not client deliveries."
-            align="center"
-          />
-        </Reveal>
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+          <Reveal className="lg:col-span-7">
+            <p className="eyebrow text-brand">Concept lab</p>
+            <h2 id="showcase-heading" className="display-lg mt-5 text-balance text-heading">
+              Built around real-world complexity.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} className="lg:col-span-4 lg:col-start-9">
+            <p className="leading-relaxed text-muted">
+              Four illustrative products that show how we think through a problem, from the first
+              workflow map to the system behind the screens.
+            </p>
+          </Reveal>
+        </div>
 
-        <div className="mt-12">
+        <Reveal className="mt-12 lg:mt-16">
           <div
-            className="flex flex-wrap justify-center gap-2"
             role="tablist"
-            aria-label="Engineering showcase categories"
+            aria-label="Illustrative concepts"
+            className="-mx-5 flex gap-1 overflow-x-auto border-b border-hairline px-5 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
           >
-            {showcaseTabs.map((t) => {
+            {showcaseTabs.map((t, i) => {
               const selected = t.id === active
               return (
                 <button
                   key={t.id}
+                  ref={(el) => {
+                    tabRefs.current[t.id] = el
+                  }}
                   type="button"
                   role="tab"
-                  id={`tab-${t.id}`}
+                  id={`concept-tab-${t.id}`}
                   aria-selected={selected}
-                  aria-controls={`panel-${t.id}`}
+                  aria-controls={`concept-panel-${t.id}`}
                   tabIndex={selected ? 0 : -1}
                   onClick={() => setActive(t.id)}
-                  onKeyDown={(e) => {
-                    const idx = showcaseTabs.findIndex((x) => x.id === t.id)
-                    if (e.key === 'ArrowRight') {
-                      const next = showcaseTabs[(idx + 1) % showcaseTabs.length]
-                      setActive(next.id)
-                    }
-                    if (e.key === 'ArrowLeft') {
-                      const prev = showcaseTabs[(idx - 1 + showcaseTabs.length) % showcaseTabs.length]
-                      setActive(prev.id)
-                    }
-                  }}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                    selected
-                      ? 'bg-indigo-brand text-white shadow-sm'
-                      : 'bg-surface-inset text-muted hover:text-ink'
+                  onKeyDown={(e) => onKeyDown(e, i)}
+                  className={`relative shrink-0 px-4 py-4 text-[0.9375rem] font-medium whitespace-nowrap transition-colors first:pl-0 ${
+                    selected ? 'text-heading' : 'text-muted hover:text-heading'
                   }`}
                 >
+                  <span className="mr-2 font-mono text-xs text-muted">0{i + 1}</span>
                   {t.label}
+                  {selected && (
+                    <span className="absolute inset-x-0 -bottom-px h-0.5 bg-blue-corporate" aria-hidden="true" />
+                  )}
                 </button>
               )
             })}
           </div>
 
           <div
-            id={`panel-${tab.id}`}
+            key={tab.id}
+            id={`concept-panel-${tab.id}`}
             role="tabpanel"
-            aria-labelledby={`tab-${tab.id}`}
-            className="mt-8 grid gap-8 lg:grid-cols-2 lg:items-center"
+            aria-labelledby={`concept-tab-${tab.id}`}
+            tabIndex={0}
+            className="motion-safe:motion-opacity-in-0 motion-duration-500 mt-10 grid gap-10 rounded-sm lg:grid-cols-12 lg:gap-12"
           >
-            <div>
-              <p className="text-xs font-semibold tracking-wide text-indigo-brand uppercase">
-                Illustrative concept
-              </p>
-              <h3 className="mt-2 text-2xl font-semibold text-ink">{tab.title}</h3>
-              <p className="mt-4 text-muted leading-relaxed">{tab.description}</p>
-              <div className="mt-6">
-                <p className="text-sm font-medium text-ink">Example use cases</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted">
-                  {tab.useCases.map((u) => (
-                    <li key={u}>{u}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {tab.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-lg border border-border-light bg-surface-inset px-2.5 py-1 text-xs font-medium text-ink"
-                  >
-                    {tech}
-                  </span>
-                ))}
+            <div className="lg:col-span-7">
+              <div className="rounded-2xl bg-surface-sunken p-4 sm:p-8 lg:p-10">
+                <div className="mb-5 sm:mb-6">
+                  <ConceptLabel />
+                </div>
+                <div aria-hidden="true">
+                  <ConceptMockup id={tab.id} />
+                </div>
               </div>
             </div>
-            <ShowcaseMockup tabId={tab.id} />
+
+            <div className="lg:col-span-5">
+              <h3 className="display-md text-balance text-heading">{tab.title}</h3>
+              <p className="mt-4 leading-relaxed text-muted">{tab.description}</p>
+
+              <dl className="mt-8 divide-y divide-hairline border-y border-hairline">
+                <div className="grid gap-2 py-5 sm:grid-cols-[7.5rem_1fr]">
+                  <dt className="eyebrow pt-0.5 text-muted">Problem</dt>
+                  <dd className="text-body">{tab.problem}</dd>
+                </div>
+                <div className="grid gap-2 py-5 sm:grid-cols-[7.5rem_1fr]">
+                  <dt className="eyebrow pt-0.5 text-muted">Approach</dt>
+                  <dd>
+                    <ul className="space-y-2 text-body">
+                      {tab.approach.map((a) => (
+                        <li key={a} className="flex gap-3">
+                          <span className="mt-[0.7em] h-px w-3 shrink-0 bg-blue-corporate" aria-hidden="true" />
+                          {a}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+                <div className="grid gap-2 py-5 sm:grid-cols-[7.5rem_1fr]">
+                  <dt className="eyebrow pt-0.5 text-muted">Potential value</dt>
+                  <dd className="font-medium text-heading">{tab.value}</dd>
+                </div>
+              </dl>
+
+              <p className="mt-6 text-sm text-muted">
+                <span className="sr-only">Technologies: </span>
+                {tab.technologies.join(' · ')}
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
+                {service && (
+                  <Link
+                    to={`/services/${service.slug}`}
+                    className="inline-flex items-center gap-1.5 text-brand hover:underline"
+                  >
+                    {service.shortTitle}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                )}
+                <Link to="/work" className="inline-flex items-center gap-1.5 text-heading hover:underline">
+                  Explore the Concept Lab
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </Container>
     </section>
   )

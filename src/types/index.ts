@@ -39,7 +39,6 @@ export interface InsightArticle {
   readingTimeMinutes: number
   title: string
   summary: string
-  publishedAt: string
   body: InsightBlock[]
 }
 
@@ -53,23 +52,38 @@ export interface FaqItem {
   answer: string
 }
 
+export type ShowcaseId = 'operations' | 'saas' | 'portal' | 'documents'
+
 export interface ShowcaseTab {
-  id: string
+  id: ShowcaseId
   label: string
   title: string
   description: string
+  problem: string
+  approach: string[]
+  value: string
   technologies: string[]
   useCases: string[]
+  relatedService: ServiceSlug
+}
+
+export interface ServiceDetail {
+  headline: string
+  intro: string
+  audience: { title: string; text: string }[]
+  problems: string[]
+  process: { title: string; text: string }[]
+  faqs: FaqItem[]
 }
 
 export type ContactServiceInterest =
-  | 'Software Consulting'
-  | 'Web Application'
+  | 'Software Consulting & Architecture'
+  | 'Custom Web Application'
   | 'Mobile Application'
-  | 'SaaS Development'
-  | 'AI & Automation'
-  | 'Cloud Modernization'
-  | 'Other'
+  | 'SaaS Product Engineering'
+  | 'AI & Workflow Automation'
+  | 'Cloud, APIs & Modernization'
+  | 'Not sure yet'
 
 export interface ContactFormValues {
   fullName: string

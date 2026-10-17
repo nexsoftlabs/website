@@ -1,8 +1,10 @@
 export const SITE_URL = 'https://nexsoftlabs.in'
 export const SITE_NAME = 'NexSoft Labs'
-export const DEFAULT_TAGLINE = 'Engineering Ideas Into Digital Advantage.'
+export const CONTACT_EMAIL = 'hello@nexsoftlabs.in'
+export const DEFAULT_TAGLINE = 'We engineer software that moves business forward.'
 export const DEFAULT_DESCRIPTION =
-  'We help ambitious businesses turn complex challenges into elegant software, scalable applications, and intelligent digital experiences.'
+  'NexSoft Labs designs, builds and modernizes custom software: web applications, mobile apps, SaaS platforms, AI workflow automation and cloud modernization.'
+export const OG_IMAGE = `${SITE_URL}/og/og-default.png`
 
 export function canonicalPath(path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`

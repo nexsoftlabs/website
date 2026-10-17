@@ -2,55 +2,83 @@ import type { ShowcaseTab } from '@/types'
 
 export const showcaseTabs: ShowcaseTab[] = [
   {
-    id: 'web',
-    label: 'Web Applications',
-    title: 'Operations management dashboard',
+    id: 'operations',
+    label: 'Operations platform',
+    title: 'A single operating picture for a field-service business',
     description:
-      'Illustrative concept: a responsive web application that unifies tasks, approvals, and operational KPIs for distributed teams—with real-time status and exportable reports.',
-    technologies: ['React', 'TypeScript', 'REST APIs', 'PostgreSQL'],
-    useCases: [
-      'Internal operations and workflow tracking',
-      'Customer portals and self-service hubs',
-      'Admin consoles for complex business rules',
+      'Corvane is a fictional facilities company running jobs across dozens of sites. Dispatchers, technicians and managers each see the same live data through the interface built for their role.',
+    problem:
+      'Work orders live in spreadsheets, updates arrive by phone and managers find out about missed visits after the customer complains.',
+    approach: [
+      'Map the real dispatch workflow with the people who run it, before designing screens',
+      'One API and data model shared by the web dashboard and the technicians’ mobile app',
+      'Status changes captured at the source, with offline-tolerant sync for low-signal sites',
+      'Role-based views and an audit trail for every change to a job',
     ],
+    value:
+      'Fewer missed visits, faster dispatch decisions and reporting that no longer needs a weekly spreadsheet merge.',
+    technologies: ['React', 'TypeScript', 'ASP.NET Core', 'PostgreSQL', 'Docker'],
+    useCases: ['Field service & maintenance', 'Logistics & fulfillment', 'Multi-site operations'],
+    relatedService: 'web-development',
   },
   {
     id: 'saas',
-    label: 'SaaS Platforms',
-    title: 'Subscription-based SaaS platform',
+    label: 'SaaS subscription platform',
+    title: 'A multi-tenant subscription product, ready to grow',
     description:
-      'Illustrative concept: a multi-tenant SaaS with onboarding flows, tiered access, billing integration points, and product analytics for growth teams.',
-    technologies: ['React', 'ASP.NET Core / Python APIs', 'SQL databases', 'CI/CD'],
-    useCases: [
-      'B2B software with role-based tenants',
-      'Usage-based or subscription billing models',
-      'Partner and reseller portals',
+      'A B2B scheduling product for clinics, sold on monthly plans. Each customer organization gets its own workspace, users and billing.',
+    problem:
+      'The prototype won early customers, but every new account means manual setup, and pricing changes require code changes.',
+    approach: [
+      'Tenant isolation and role-based permissions designed into the data model from the start',
+      'Self-service onboarding, plan changes and invoices handled through a billing provider',
+      'Usage and health metrics so the team can see which accounts need attention',
+      'Feature flags and CI/CD so releases ship safely to every tenant',
     ],
+    value:
+      'New customers can sign up and pay without the team’s involvement, and the platform can add plans without a rewrite.',
+    technologies: ['React', 'Python', 'PostgreSQL', 'AWS', 'CI/CD'],
+    useCases: ['Vertical B2B SaaS', 'Membership & subscription products', 'Partner portals'],
+    relatedService: 'saas-development',
   },
   {
-    id: 'mobile',
-    label: 'Mobile Experiences',
-    title: 'Customer self-service mobile application',
+    id: 'portal',
+    label: 'Mobile customer portal',
+    title: 'A customer app that takes pressure off the support line',
     description:
-      'Illustrative concept: a mobile experience for account management, notifications, and lightweight workflows—optimized for intermittent connectivity.',
-    technologies: ['Cross-platform mobile', 'Secure auth', 'Push notifications', 'API integration'],
-    useCases: [
-      'Field service and on-site workflows',
-      'Member and loyalty applications',
-      'Companion apps for existing web products',
+      'A mobile portal for a fictional utilities provider, giving customers self-service access to their account, bills and service requests.',
+    problem:
+      'Most support calls are routine — balance checks, meter readings, outage updates — and the existing website is hard to use on a phone.',
+    approach: [
+      'Start from the ten most common support requests and design around them',
+      'Secure sign-in and an API layer in front of the existing billing system, which stays unchanged',
+      'Push notifications for outages and bills, with clear preferences control',
+      'Accessible, readable interfaces tested with real customers before launch',
     ],
+    value:
+      'Routine requests move to self-service, giving the support team time for issues that need a person.',
+    technologies: ['Cross-platform mobile', 'TypeScript', 'REST APIs', 'SQL Server'],
+    useCases: ['Customer self-service', 'Member & loyalty apps', 'Companion apps for web products'],
+    relatedService: 'mobile-app-development',
   },
   {
-    id: 'ai',
-    label: 'AI & Automation',
-    title: 'AI-assisted document processing workflow',
+    id: 'documents',
+    label: 'AI document workflow',
+    title: 'AI-assisted document intake, with people in control',
     description:
-      'Illustrative concept: a pipeline that ingests documents, classifies content, routes tasks, and flags exceptions for human review—with full audit history.',
-    technologies: ['AI APIs', 'Workflow automation', 'Webhooks', 'Cloud storage'],
-    useCases: [
-      'Invoice and form processing',
-      'Support ticket triage',
-      'Compliance review assistance',
+      'An intake workflow for a fictional insurance broker that reads incoming documents, extracts key fields and routes each case to the right team.',
+    problem:
+      'Staff re-key data from hundreds of PDFs and emails a week, and urgent cases wait in the same queue as routine ones.',
+    approach: [
+      'Measure the current process first, so improvement can be shown rather than assumed',
+      'AI extraction with confidence scores; anything uncertain goes to a human reviewer',
+      'Routing rules the operations team can adjust without a developer',
+      'Full history of what the system suggested and what a person approved',
     ],
+    value:
+      'Less manual re-keying, urgent cases surfaced sooner and a clear record for compliance reviews.',
+    technologies: ['Python', 'AI APIs', 'Workflow automation', 'PostgreSQL', 'AWS'],
+    useCases: ['Invoice & claims intake', 'Support ticket triage', 'Compliance review assistance'],
+    relatedService: 'ai-automation',
   },
 ]
