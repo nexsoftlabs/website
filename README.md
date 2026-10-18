@@ -35,13 +35,13 @@ Open the URL shown in the terminal (typically `http://localhost:5173`).
 
 Copy `.env.example` to `.env.local` (not committed):
 
-- **`VITE_CONTACT_API_URL`** — HTTPS URL of the contact API (`/contact` on the Render service in `api/`). When set, submissions are emailed to **`labs.nexsoft@gmail.com`**. See `api/README.md` for Gmail App Password setup on Render.
+- **`VITE_CONTACT_API_URL`** — HTTPS URL of the contact API (`/contact` on the Render service in `api/`). When set, submissions are emailed to **`labs.nexsoft@gmail.com`** via Resend. See `api/README.md`.
 
 ### Contact form behavior
 
 | `VITE_CONTACT_API_URL` | Result |
 |------------------------|--------|
-| Set                    | The browser POSTs the enquiry. On success, the message is delivered to the NexSoft Gmail inbox. |
+| Set                    | The browser POSTs the enquiry. On success, the message is delivered to the NexSoft inbox via Resend. |
 | Unset                  | The form opens the visitor’s email app with a message to `hello@nexsoftlabs.in` already filled in. Nothing is sent until they press send, and the page says so. |
 
 ## Deployment
@@ -65,7 +65,7 @@ After `npm run build`, deploy the `dist/` folder. Example Apache/nginx: serve `i
 
 ## Still needs owner confirmation
 
-- [ ] Render env `GMAIL_APP_PASSWORD` for `labs.nexsoft@gmail.com`, then `VITE_CONTACT_API_URL` on Vercel pointing at the deployed `api/` service.
+- [ ] Render env `RESEND_API_KEY` + verified domain in Resend; `VITE_CONTACT_API_URL` on Vercel → `api/` service URL.
 - [ ] Privacy Policy and Terms reviewed by counsel. Both pages are drafts and are `noindex`.
 - [ ] FAQ answer on code and IP ownership (“the code we create for you belongs to you”).
 - [ ] Technology list on the homepage, including the mobile stack and the cloud FAQ mention of AWS.
