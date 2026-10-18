@@ -1,5 +1,4 @@
 # NexSoft Labs — Render Blueprint (contact form API)
-# Existing service: set Root Directory to `api` in the dashboard if not using Blueprint sync.
 services:
   - type: web
     name: nexsoft-contact-api
@@ -14,9 +13,9 @@ services:
     envVars:
       - key: CONTACT_INBOX
         value: labs.nexsoft@gmail.com
-      - key: GMAIL_USER
-        value: labs.nexsoft@gmail.com
+      - key: RESEND_FROM
+        value: NexSoft Labs Website <hello@nexsoftlabs.in>
       - key: ALLOWED_ORIGINS
         value: https://nexsoftlabs.in,https://www.nexsoftlabs.in,http://localhost:5173,http://localhost:5180
-      - key: GMAIL_APP_PASSWORD
+      - key: RESEND_API_KEY
         sync: false
