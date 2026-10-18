@@ -1,13 +1,14 @@
 import cors from 'cors'
 import express from 'express'
 import rateLimit from 'express-rate-limit'
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 import { z } from 'zod'
 
 const PORT = Number(process.env.PORT) || 10000
 const INBOX = process.env.CONTACT_INBOX?.trim() || 'labs.nexsoft@gmail.com'
-const GMAIL_USER = process.env.GMAIL_USER?.trim()
-const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD?.trim()
+const RESEND_API_KEY = process.env.RESEND_API_KEY?.trim()
+const RESEND_FROM =
+  process.env.RESEND_FROM?.trim() || 'NexSoft Labs Website <hello@nexsoftlabs.in>'
 
 const allowedOrigins = (
   process.env.ALLOWED_ORIGINS ??
@@ -71,8 +72,10 @@ app.use(express.json({ limit: '32kb' }))
 app.get('/health', (_req, res) => {
   res.json({
     ok: true,
-    mailConfigured: Boolean(GMAIL_USER && GMAIL_APP_PASSWORD),
+    mailConfigured: Boolean(RESEND_API_KEY),
+    provider: 'resend',
     inbox: INBOX,
+    from: RESEND_FROM,
   })
 })
 
@@ -96,7 +99,7 @@ app.post('/contact', contactLimiter, async (req, res) => {
     return
   }
 
-  if (!GMAIL_USER || !GMAIL_APP_PASSWORD) {
+  if (!RESEND_API_KEY) {
     res.status(503).json({ error: 'Contact delivery is not configured on the server.' })
     return
   }
@@ -105,22 +108,21 @@ app.post('/contact', contactLimiter, async (req, res) => {
   const { text, html } = formatEnquiry(parsed.data)
 
   try {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: GMAIL_USER,
-        pass: GMAIL_APP_PASSWORD,
-      },
-    })
-
-    await transporter.sendMail({
-      from: `"NexSoft Labs Website" <${GMAIL_USER}>`,
-      to: INBOX,
+    const resend = new Resend(RESEND_API_KEY)
+    const { error } = await resend.emails.send({
+      from: RESEND_FROM,
+      to: [INBOX],
       replyTo: parsed.data.email,
       subject,
       text,
       html: `<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.5;color:#0b1730">${html}</div>`,
     })
+
+    if (error) {
+      console.error('[contact] resend error', error)
+      res.status(500).json({ error: 'We could not send your message. Please try again later.' })
+      return
+    }
 
     res.json({ ok: true })
   } catch (error) {
