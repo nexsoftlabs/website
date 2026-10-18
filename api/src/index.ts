@@ -6,6 +6,7 @@ import { enquirySchema, type EnquiryValues } from './enquirySchema.js'
 import {
   formatWhatsAppEnquiry,
   isWhatsAppConfigured,
+  isWhatsAppTemplateConfigured,
   sendWhatsAppNotification,
 } from './whatsappNotify.js'
 
@@ -68,6 +69,7 @@ app.get('/health', (_req, res) => {
     ok: true,
     mailConfigured: Boolean(RESEND_API_KEY),
     whatsappConfigured: isWhatsAppConfigured(),
+    whatsappTemplateConfigured: isWhatsAppTemplateConfigured(),
     provider: 'resend',
     inbox: INBOX,
     from: RESEND_FROM,
@@ -130,7 +132,7 @@ app.post('/contact', contactLimiter, async (req, res) => {
     if (isWhatsAppConfigured()) {
       const wa = await sendWhatsAppNotification(formatWhatsAppEnquiry(parsed.data))
       if (!wa.ok) {
-        console.warn('[contact] email sent; whatsapp notification failed', wa.error)
+        console.warn('[contact] email sent; whatsapp notification failed', wa.error, wa.hint ?? '')
       }
     }
 

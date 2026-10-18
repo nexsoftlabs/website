@@ -5,9 +5,15 @@ const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN?.trim()
 const TWILIO_WHATSAPP_FROM =
   process.env.TWILIO_WHATSAPP_FROM?.trim() || 'whatsapp:+14155238886'
 const WHATSAPP_NOTIFY_TO = process.env.WHATSAPP_NOTIFY_TO?.trim()
+/** Approved WhatsApp content template (HX…). Required for alerts outside the 24h session window. */
+const TWILIO_WHATSAPP_CONTENT_SID = process.env.TWILIO_WHATSAPP_CONTENT_SID?.trim()
 
 export function isWhatsAppConfigured(): boolean {
   return Boolean(TWILIO_ACCOUNT_SID && TWILIO_AUTH_TOKEN && WHATSAPP_NOTIFY_TO)
+}
+
+export function isWhatsAppTemplateConfigured(): boolean {
+  return Boolean(TWILIO_WHATSAPP_CONTENT_SID)
 }
 
 function toWhatsAppAddress(value: string): string {
@@ -35,7 +41,9 @@ export function formatWhatsAppEnquiry(values: EnquiryValues): string {
 }
 
 /** Sends a WhatsApp message via Twilio. Does not throw; returns success flag. */
-export async function sendWhatsAppNotification(body: string): Promise<{ ok: boolean; error?: string }> {
+export async function sendWhatsAppNotification(
+  body: string,
+): Promise<{ ok: boolean; error?: string; hint?: string }> {
   if (!isWhatsAppConfigured() || !TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !WHATSAPP_NOTIFY_TO) {
     return { ok: false, error: 'not_configured' }
   }
@@ -44,8 +52,15 @@ export async function sendWhatsAppNotification(body: string): Promise<{ ok: bool
   const params = new URLSearchParams({
     From: toWhatsAppAddress(TWILIO_WHATSAPP_FROM),
     To: toWhatsAppAddress(WHATSAPP_NOTIFY_TO),
-    Body: body,
   })
+
+  // Business-initiated WhatsApp (e.g. form alerts) must use an approved template outside the 24h window.
+  if (TWILIO_WHATSAPP_CONTENT_SID) {
+    params.set('ContentSid', TWILIO_WHATSAPP_CONTENT_SID)
+    params.set('ContentVariables', JSON.stringify({ '1': body.slice(0, 1600) }))
+  } else {
+    params.set('Body', body)
+  }
 
   try {
     const response = await fetch(url, {
@@ -60,7 +75,11 @@ export async function sendWhatsAppNotification(body: string): Promise<{ ok: bool
     if (!response.ok) {
       const detail = await response.text()
       console.error('[whatsapp] twilio error', response.status, detail)
-      return { ok: false, error: `twilio_${response.status}` }
+      const hint =
+        response.status === 400 && detail.includes('ContentSid')
+          ? 'Set TWILIO_WHATSAPP_CONTENT_SID to an approved WhatsApp template, or message your Twilio sandbox from your phone and retry within 24h.'
+          : undefined
+      return { ok: false, error: `twilio_${response.status}`, hint }
     }
 
     return { ok: true }
