@@ -49,9 +49,18 @@ export async function submitContactEnquiry(values: ContactFormValues): Promise<C
     })
 
     if (!response.ok) {
+      let detail = ''
+      try {
+        const body = (await response.json()) as { error?: string }
+        if (body.error?.trim()) detail = body.error.trim()
+      } catch {
+        /* ignore non-JSON */
+      }
       return {
         ok: false,
-        error: `We could not send your message. Please try again or email ${CONTACT_EMAIL} directly.`,
+        error:
+          detail ||
+          `We could not send your message. Please try again or email ${CONTACT_EMAIL} directly.`,
       }
     }
 
