@@ -1,3 +1,31 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.nexsoftlabs.in" }],
+      "destination": "https://nexsoftlabs.in/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/services/api-integration",
+      "destination": "/services/cloud-modernization",
+      "permanent": true
+    },
+    {
+      "source": "/services/legacy-modernization",
+      "destination": "/services/cloud-modernization",
+      "permanent": true
+    },
+    {
+      "source": "/services/ui-ux-design",
+      "destination": "/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/services/dedicated-engineering",
+      "destination": "/services",
+      "permanent": true
+    }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

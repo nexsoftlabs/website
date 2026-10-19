@@ -8,7 +8,7 @@ import { ProcessSection } from '@/components/sections/ProcessSection'
 import { ShowcaseSection } from '@/components/sections/ShowcaseSection'
 import { TechnologySection } from '@/components/sections/TechnologySection'
 import { WhySection } from '@/components/sections/WhySection'
-import { OrganizationStructuredData } from '@/components/StructuredData'
+import { OrganizationStructuredData, WebSiteStructuredData } from '@/components/StructuredData'
 import { Seo } from '@/components/ui/Seo'
 import { DEFAULT_DESCRIPTION, SITE_NAME } from '@/lib/seo'
 
@@ -17,6 +17,7 @@ export function HomePage() {
     <>
       <Seo title={SITE_NAME} description={DEFAULT_DESCRIPTION} path="/" />
       <OrganizationStructuredData />
+      <WebSiteStructuredData />
       <HeroSection />
       <BusinessValueSection />
       <ExpertiseSection />

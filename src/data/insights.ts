@@ -5,6 +5,7 @@ export const insights: InsightArticle[] = [
     slug: 'architecture-for-growing-saas',
     category: 'Architecture',
     readingTimeMinutes: 8,
+    publishedAt: '2025-09-12',
     title: 'How to Choose the Right Architecture for a Growing SaaS Product',
     summary:
       'Early architectural choices shape how fast you can ship, how safely you can scale, and how painful migrations become later. Here is a practical framework for growing products.',
@@ -56,6 +57,7 @@ export const insights: InsightArticle[] = [
     slug: 'when-to-modernize-legacy',
     category: 'Modernization',
     readingTimeMinutes: 7,
+    publishedAt: '2025-09-28',
     title: 'When Should a Business Modernize Its Legacy Application?',
     summary:
       'Modernization is expensive when mistimed and costly when delayed. Learn signals that indicate when incremental change beats a big-bang rewrite.',
@@ -98,6 +100,7 @@ export const insights: InsightArticle[] = [
     slug: 'practical-ai-in-workflows',
     category: 'AI & Automation',
     readingTimeMinutes: 6,
+    publishedAt: '2025-10-05',
     title: 'Practical Ways to Introduce AI into Existing Workflows',
     summary:
       'Useful AI adoption starts with workflow clarity, not model hype. A grounded approach to automation that keeps humans in the loop.',

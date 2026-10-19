@@ -8,6 +8,7 @@ import { ArticleCover } from '@/components/ui/ArticleCover'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { PageHero } from '@/components/ui/PageHero'
+import { ArticleStructuredData } from '@/components/StructuredData'
 import { Seo } from '@/components/ui/Seo'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import type { ServiceSlug } from '@/types'
@@ -32,6 +33,13 @@ export function ArticlePage() {
   return (
     <>
       <Seo title={article.title} description={article.summary} path={`/insights/${article.slug}`} ogType="article" />
+      <ArticleStructuredData
+        title={article.title}
+        description={article.summary}
+        path={`/insights/${article.slug}`}
+        publishedAt={article.publishedAt}
+        category={article.category}
+      />
       <PageHero
         breadcrumbs={[{ label: 'Insights', href: '/insights' }, { label: article.category }]}
         eyebrow={`${article.category} · ${article.readingTimeMinutes} min read`}

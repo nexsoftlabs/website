@@ -39,6 +39,8 @@ export interface InsightArticle {
   readingTimeMinutes: number
   title: string
   summary: string
+  /** ISO date (YYYY-MM-DD) for SEO / Article schema */
+  publishedAt: string
   body: InsightBlock[]
 }
 

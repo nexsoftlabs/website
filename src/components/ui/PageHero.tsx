@@ -2,6 +2,7 @@ import { ChevronRight } from 'lucide-react'
 import { useRef, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useRegisterDarkHero } from '@/lib/heroVisibility'
+import { BreadcrumbStructuredData } from '@/components/StructuredData'
 import { Container } from '@/components/ui/Container'
 
 interface Crumb {
@@ -26,6 +27,8 @@ export function PageHero({ eyebrow, title, description, breadcrumbs, children, a
     <section ref={ref} className="bg-navy-radial text-white">
       <Container className="pt-12 pb-16 sm:pt-16 lg:pt-20 lg:pb-24">
         {breadcrumbs && (
+          <>
+            <BreadcrumbStructuredData crumbs={breadcrumbs} />
           <nav aria-label="Breadcrumb" className="mb-10">
             <ol className="flex flex-wrap items-center gap-1.5 text-sm text-[#8fa0ba]">
               {[{ label: 'Home', href: '/' }, ...breadcrumbs].map((crumb, i) => (
@@ -44,6 +47,7 @@ export function PageHero({ eyebrow, title, description, breadcrumbs, children, a
               ))}
             </ol>
           </nav>
+          </>
         )}
         <div className={`grid gap-12 ${aside ? 'lg:grid-cols-12 lg:items-end' : ''}`}>
           <div className={aside ? 'lg:col-span-7' : 'max-w-4xl'}>

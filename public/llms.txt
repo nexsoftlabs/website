@@ -1,0 +1,9 @@
+# NexSoft Labs
+
+> Software engineering consultancy — custom web apps, mobile, SaaS, AI automation, cloud modernization.
+
+- Website: https://nexsoftlabs.in/
+- Contact: https://nexsoftlabs.in/contact
+- Services: https://nexsoftlabs.in/services
+- Insights: https://nexsoftlabs.in/insights
+- Email: hello@nexsoftlabs.in
