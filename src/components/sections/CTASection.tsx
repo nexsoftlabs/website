@@ -16,17 +16,15 @@ export function CTASection({
   ctaLabel = 'Start a Conversation',
 }: CTASectionProps) {
   return (
-    <section className="bg-navy-radial text-white" aria-labelledby="cta-heading">
-      <Container className="py-24 lg:py-36">
+    <section className="hero-ambient bg-navy-radial text-white" aria-labelledby="cta-heading">
+      <Container className="py-20 lg:py-28">
         <Reveal className="grid gap-12 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
-            <h2
-              id="cta-heading"
-              className="text-[clamp(2.75rem,1.6rem+4.4vw,5.5rem)] leading-[0.98] font-semibold tracking-[-0.04em] text-balance"
-            >
+            <p className="eyebrow-rule text-blue-soft">Work with us</p>
+            <h2 id="cta-heading" className="display-lg mt-2 text-balance text-white">
               {title}
             </h2>
-            <p className="lede mt-8 max-w-xl text-[#b8c5da]">{text}</p>
+            <p className="lede mt-6 max-w-xl text-[#c5d0e0]">{text}</p>
           </div>
           <div className="flex flex-col gap-5 lg:col-span-4 lg:items-end">
             <Button to="/contact" size="lg" variant="light" arrow className="w-full sm:w-auto">

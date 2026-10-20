@@ -24,7 +24,7 @@ export function PageHero({ eyebrow, title, description, breadcrumbs, children, a
   useRegisterDarkHero(ref)
 
   return (
-    <section ref={ref} className="bg-navy-radial text-white">
+    <section ref={ref} className="hero-ambient bg-navy-radial text-white">
       <Container className="pt-12 pb-16 sm:pt-16 lg:pt-20 lg:pb-24">
         {breadcrumbs && (
           <>
@@ -51,8 +51,8 @@ export function PageHero({ eyebrow, title, description, breadcrumbs, children, a
         )}
         <div className={`grid gap-12 ${aside ? 'lg:grid-cols-12 lg:items-end' : ''}`}>
           <div className={aside ? 'lg:col-span-7' : 'max-w-4xl'}>
-            {eyebrow && <p className="eyebrow text-blue-soft">{eyebrow}</p>}
-            <h1 className="display-lg mt-5 text-balance">{title}</h1>
+            {eyebrow && <p className="eyebrow-rule text-blue-soft">{eyebrow}</p>}
+            <h1 className="display-lg mt-2 text-balance">{title}</h1>
             {description && <p className="lede mt-6 max-w-2xl text-pretty text-[#b8c5da]">{description}</p>}
             {children && <div className="mt-9">{children}</div>}
           </div>

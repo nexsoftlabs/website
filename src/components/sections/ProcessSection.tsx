@@ -34,8 +34,8 @@ export function ProcessSection() {
       <Container>
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-6">
-            <p className="eyebrow text-brand">How we work</p>
-            <h2 id="process-heading" className="display-lg mt-5 text-balance text-heading">
+            <p className="eyebrow-rule text-brand">How we work</p>
+            <h2 id="process-heading" className="display-lg mt-2 text-balance text-heading">
               Clarity at every stage.
             </h2>
           </Reveal>
@@ -49,20 +49,29 @@ export function ProcessSection() {
 
         <ol className="relative mt-16 grid gap-12 lg:mt-24 lg:grid-cols-4 lg:gap-8">
           <span
-            className="absolute top-[11px] right-0 left-0 hidden h-px bg-hairline lg:block"
+            className="process-track process-track--horizontal hidden lg:block"
             aria-hidden="true"
           />
           <span
-            className="absolute top-0 bottom-0 left-[11px] w-px bg-hairline lg:hidden"
+            className="process-flow-beam process-flow-beam--horizontal hidden lg:block"
+            aria-hidden="true"
+          />
+          <span className="process-track process-track--vertical lg:hidden" aria-hidden="true" />
+          <span
+            className="process-flow-beam process-flow-beam--vertical lg:hidden"
             aria-hidden="true"
           />
           {processStages.map((stage, i) => (
             <Reveal as="li" key={stage.title} delay={i * 0.08} className="relative pl-12 lg:pl-0">
               <span
-                className="absolute top-0 left-0 grid h-[23px] w-[23px] place-items-center rounded-full border border-heading bg-canvas"
+                className="process-step-marker absolute top-0 left-0 grid h-[23px] w-[23px] place-items-center rounded-full border border-heading bg-canvas"
+                style={{ animationDelay: `${i * 1.1}s` }}
                 aria-hidden="true"
               >
-                <span className="h-[7px] w-[7px] rounded-full bg-blue-corporate" />
+                <span
+                  className="process-step-marker-dot h-[7px] w-[7px] rounded-full bg-blue-corporate"
+                  style={{ animationDelay: `${i * 1.1}s` }}
+                />
               </span>
               <div className="lg:pt-12">
                 <p className="font-mono text-xs tracking-wider text-muted">

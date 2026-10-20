@@ -17,6 +17,15 @@ export interface PageMeta {
   description: string
   path: string
   ogType?: 'website' | 'article'
+  /** Absolute or site-relative URL for og:image / twitter:image */
+  ogImage?: string
+  ogImageAlt?: string
+}
+
+export function absoluteAssetUrl(pathOrUrl: string): string {
+  if (pathOrUrl.startsWith('http://') || pathOrUrl.startsWith('https://')) return pathOrUrl
+  const normalized = pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`
+  return `${SITE_URL}${normalized}`
 }
 
 export function pageTitle(title: string): string {

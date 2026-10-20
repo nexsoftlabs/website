@@ -32,13 +32,21 @@ export function ArticlePage() {
 
   return (
     <>
-      <Seo title={article.title} description={article.summary} path={`/insights/${article.slug}`} ogType="article" />
+      <Seo
+        title={article.title}
+        description={article.summary}
+        path={`/insights/${article.slug}`}
+        ogType="article"
+        ogImage={article.coverImage}
+        ogImageAlt={article.coverImageAlt}
+      />
       <ArticleStructuredData
         title={article.title}
         description={article.summary}
         path={`/insights/${article.slug}`}
         publishedAt={article.publishedAt}
         category={article.category}
+        image={article.coverImage}
       />
       <PageHero
         breadcrumbs={[{ label: 'Insights', href: '/insights' }, { label: article.category }]}
@@ -49,6 +57,28 @@ export function ArticlePage() {
 
       <article className="bg-surface py-16 lg:py-24">
         <Container>
+          <figure className="mb-12 lg:mb-14">
+            <ArticleCover
+              category={article.category}
+              image={article.coverImage}
+              alt={article.coverImageAlt}
+              className="aspect-[21/9] max-h-[min(420px,50vh)] w-full"
+            />
+            {article.coverCredit && (
+              <figcaption className="mt-3 text-right text-xs text-muted">
+                Photo by{' '}
+                <a
+                  href={article.coverCredit.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand hover:underline"
+                >
+                  {article.coverCredit.photographer}
+                </a>{' '}
+                on {article.coverCredit.source}
+              </figcaption>
+            )}
+          </figure>
           <div className="grid gap-14 lg:grid-cols-12">
             <div className="max-w-[68ch] lg:col-span-8">
               <ArticleBody blocks={article.body} />
@@ -88,7 +118,12 @@ export function ArticlePage() {
               {related.map((a) => (
                 <li key={a.slug}>
                   <Link to={`/insights/${a.slug}`} className="group grid gap-6 sm:grid-cols-[10rem_1fr]">
-                    <ArticleCover category={a.category} className="aspect-[4/3] sm:aspect-square" />
+                    <ArticleCover
+                      category={a.category}
+                      image={a.coverImage}
+                      alt={a.coverImageAlt}
+                      className="aspect-[4/3] sm:aspect-square"
+                    />
                     <div>
                       <p className="text-sm text-muted">
                         <span className="font-medium text-brand">{a.category}</span> · {a.readingTimeMinutes} min read

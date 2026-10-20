@@ -45,11 +45,15 @@ export function Accordion({ items, defaultOpen = null, tone = 'light' }: Accordi
               id={panelId}
               role="region"
               aria-labelledby={buttonId}
-              className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+              className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
               inert={!open}
             >
               <div className="overflow-hidden">
-                <p className={`max-w-3xl pr-10 pb-6 leading-relaxed ${dark ? 'text-[#b8c5da]' : 'text-muted'}`}>
+                <p
+                  className={`max-w-3xl pr-10 pb-6 leading-relaxed transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    open ? 'translate-y-0 opacity-100' : '-translate-y-1 opacity-0'
+                  } ${dark ? 'text-[#b8c5da]' : 'text-muted'}`}
+                >
                   {item.answer}
                 </p>
               </div>

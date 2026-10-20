@@ -172,7 +172,7 @@ export function PhoneMockup() {
 
   return (
     <div className="h-full rounded-[2.6em] bg-[#0b1730] p-[0.55em] shadow-mockup ring-1 ring-white/15">
-      <div className="flex h-full flex-col overflow-hidden rounded-[2.1em] bg-[#f4f7fb] text-[#0b1730]">
+      <div className="flex h-full flex-col overflow-hidden rounded-[2.1em] bg-white text-[#0b1730]">
         <div className="flex items-center justify-between px-[1.6em] pt-[1.1em] text-[0.85em] font-semibold">
           <span>9:41</span>
           <span className="h-[1.3em] w-[4.6em] rounded-full bg-[#0b1730]" />

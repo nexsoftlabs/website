@@ -14,6 +14,7 @@ export function TermsPage() {
       <LegalDocument
         title="Terms of Use"
         description="The terms that apply when you use this website."
+        showDraftNotice
         sections={[
           {
             heading: 'Website use',

@@ -1,5 +1,13 @@
 import { Helmet } from 'react-helmet-async'
-import { canonicalPath, DEFAULT_TAGLINE, OG_IMAGE, pageTitle, SITE_NAME, type PageMeta } from '@/lib/seo'
+import {
+  absoluteAssetUrl,
+  canonicalPath,
+  DEFAULT_TAGLINE,
+  OG_IMAGE,
+  pageTitle,
+  SITE_NAME,
+  type PageMeta,
+} from '@/lib/seo'
 
 interface SeoProps extends PageMeta {
   noIndex?: boolean
@@ -12,11 +20,15 @@ export function Seo({
   description,
   path,
   ogType = 'website',
+  ogImage,
+  ogImageAlt,
   noIndex,
   googleSiteVerification,
 }: SeoProps) {
   const fullTitle = pageTitle(title)
   const url = canonicalPath(path)
+  const shareImage = ogImage ? absoluteAssetUrl(ogImage) : OG_IMAGE
+  const shareImageAlt = ogImageAlt ?? `${SITE_NAME} — ${DEFAULT_TAGLINE}`
   const verification =
     googleSiteVerification?.trim() || import.meta.env.VITE_GOOGLE_SITE_VERIFICATION?.trim()
 
@@ -36,15 +48,15 @@ export function Seo({
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:type" content={ogType} />
-      <meta property="og:image" content={OG_IMAGE} />
+      <meta property="og:image" content={shareImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={`${SITE_NAME} — ${DEFAULT_TAGLINE}`} />
+      <meta property="og:image:alt" content={shareImageAlt} />
       <meta property="og:locale" content="en_IN" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={OG_IMAGE} />
+      <meta name="twitter:image" content={shareImage} />
     </Helmet>
   )
 }

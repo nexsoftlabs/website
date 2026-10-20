@@ -24,7 +24,7 @@ export function SectionHeading({
   return (
     <div className={`${alignClass} ${className}`}>
       {eyebrow && (
-        <p className={`eyebrow mb-5 ${dark ? 'text-blue-soft' : 'text-brand'}`}>{eyebrow}</p>
+        <p className={`eyebrow-rule mb-6 ${dark ? 'text-blue-soft' : 'text-brand'}`}>{eyebrow}</p>
       )}
       <Heading className={`display-lg text-balance ${dark ? 'text-white' : 'text-heading'}`}>
         {title}

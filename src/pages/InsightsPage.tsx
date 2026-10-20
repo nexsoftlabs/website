@@ -32,6 +32,8 @@ export function InsightsPage() {
                   <Link to={`/insights/${article.slug}`} className="group block">
                     <ArticleCover
                       category={article.category}
+                      image={article.coverImage}
+                      alt={article.coverImageAlt}
                       className="aspect-[4/3] transition-opacity group-hover:opacity-90"
                     />
                     <p className="mt-6 text-sm text-muted">

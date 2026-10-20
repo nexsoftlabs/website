@@ -20,9 +20,12 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <Logo variant="light" />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed">
-              A software engineering consultancy that designs, builds and modernizes dependable
-              digital products.
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#9aa8be]">
+              Architecture-led software consultancy for web, mobile, SaaS and cloud—engagements built
+              on clarity, accountability and engineering discipline.
+            </p>
+            <p className="mt-6 text-xs tracking-wide text-[#6d7d96] uppercase">
+              India · Remote delivery worldwide
             </p>
           </div>
 
@@ -31,7 +34,7 @@ export function Footer() {
             <ul className="mt-5 space-y-3">
               {serviceNavItems.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-sm transition-colors hover:text-white">
+                  <Link to={link.href} className="link-animate text-sm transition-colors hover:text-white">
                     {link.label}
                   </Link>
                 </li>
@@ -44,7 +47,7 @@ export function Footer() {
             <ul className="mt-5 space-y-3">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-sm transition-colors hover:text-white">
+                  <Link to={link.href} className="link-animate text-sm transition-colors hover:text-white">
                     {link.label}
                   </Link>
                 </li>

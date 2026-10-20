@@ -15,8 +15,8 @@ export function TechnologySection() {
       <Container>
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-6">
-            <p className="eyebrow text-brand">Technology</p>
-            <h2 id="technology-heading" className="display-lg mt-5 text-balance text-heading">
+            <p className="eyebrow-rule text-brand">Technology</p>
+            <h2 id="technology-heading" className="display-lg mt-2 text-balance text-heading">
               The right tools for the right challenge.
             </h2>
           </Reveal>
@@ -40,7 +40,7 @@ export function TechnologySection() {
               <p className="mt-1 text-sm text-muted">{group.use}</p>
               <ul className="mt-6 space-y-2.5">
                 {group.items.map((item) => (
-                  <li key={item} className="text-[0.9375rem] text-body">
+                  <li key={item} className="tech-chip text-[0.9375rem] text-body">
                     {item}
                   </li>
                 ))}

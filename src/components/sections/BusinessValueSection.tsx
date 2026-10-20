@@ -27,8 +27,8 @@ export function BusinessValueSection() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           <Reveal className="lg:col-span-7">
-            <p className="eyebrow text-brand">Our perspective</p>
-            <h2 id="business-value-heading" className="display-lg mt-5 text-balance text-heading">
+            <p className="eyebrow-rule text-brand">Our perspective</p>
+            <h2 id="business-value-heading" className="display-lg mt-2 text-balance text-heading">
               Technology should solve business problems—not create new ones.
             </h2>
           </Reveal>
@@ -43,7 +43,7 @@ export function BusinessValueSection() {
 
         <ol className="mt-16 grid gap-6 md:grid-cols-3 lg:mt-24 lg:gap-8">
           {pillars.map((pillar, i) => (
-            <Reveal as="li" key={pillar.title} delay={0.08 * i} className="h-full">
+            <Reveal as="li" key={pillar.title} delay={0.08 * i} variant="scale" className="h-full">
               <FeatureCard icon={pillar.icon} index={i} title={pillar.title} text={pillar.text} />
             </Reveal>
           ))}

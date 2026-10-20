@@ -50,7 +50,7 @@ export function WorkPage() {
             <Container>
               <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
                 <Reveal className={`lg:col-span-7 ${flip ? 'lg:order-2' : ''}`}>
-                  <div className={`rounded-2xl p-4 sm:p-8 lg:p-10 ${i % 2 === 0 ? 'bg-surface-sunken' : 'bg-surface'}`}>
+                  <div className="mockup-stage">
                     <div className="mb-6">
                       <ConceptLabel />
                     </div>

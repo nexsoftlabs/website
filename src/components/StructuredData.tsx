@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
 import {
+  absoluteAssetUrl,
   canonicalPath,
   CONTACT_EMAIL,
   DEFAULT_DESCRIPTION,
@@ -102,6 +103,7 @@ export interface ArticleStructuredDataProps {
   path: string
   publishedAt: string
   category: string
+  image?: string
 }
 
 export function ArticleStructuredData({
@@ -110,6 +112,7 @@ export function ArticleStructuredData({
   path,
   publishedAt,
   category,
+  image,
 }: ArticleStructuredDataProps) {
   const url = canonicalPath(path)
 
@@ -136,7 +139,7 @@ export function ArticleStructuredData({
         url: `${SITE_URL}/og/og-default.png`,
       },
     },
-    image: OG_IMAGE,
+    image: image ? absoluteAssetUrl(image) : OG_IMAGE,
     articleSection: category,
   }
 

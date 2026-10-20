@@ -1,3 +1,4 @@
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Info } from 'lucide-react'
 import { useRef, useState, type KeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
@@ -21,7 +22,10 @@ export function ConceptLabel({ tone = 'light' }: { tone?: 'light' | 'dark' }) {
   )
 }
 
+const panelEase = [0.22, 1, 0.36, 1] as const
+
 export function ShowcaseSection() {
+  const reduceMotion = useReducedMotion()
   const [active, setActive] = useState<ShowcaseId>(showcaseTabs[0].id)
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({})
   const tab = showcaseTabs.find((t) => t.id === active) ?? showcaseTabs[0]
@@ -96,16 +100,21 @@ export function ShowcaseSection() {
             })}
           </div>
 
-          <div
-            key={tab.id}
-            id={`concept-panel-${tab.id}`}
-            role="tabpanel"
-            aria-labelledby={`concept-tab-${tab.id}`}
-            tabIndex={0}
-            className="motion-safe:motion-opacity-in-0 motion-duration-500 mt-10 grid gap-10 rounded-sm lg:grid-cols-12 lg:gap-12"
-          >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab.id}
+              id={`concept-panel-${tab.id}`}
+              role="tabpanel"
+              aria-labelledby={`concept-tab-${tab.id}`}
+              tabIndex={0}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: panelEase }}
+              className="mt-10 grid gap-10 rounded-sm lg:grid-cols-12 lg:gap-12"
+            >
             <div className="lg:col-span-7">
-              <div className="rounded-2xl bg-surface-sunken p-4 sm:p-8 lg:p-10">
+              <div className="mockup-stage">
                 <div className="mb-5 sm:mb-6">
                   <ConceptLabel />
                 </div>
@@ -164,7 +173,8 @@ export function ShowcaseSection() {
                 </Link>
               </div>
             </div>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </Reveal>
       </Container>
     </section>

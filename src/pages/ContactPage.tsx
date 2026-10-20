@@ -15,6 +15,8 @@ import { Container } from '@/components/ui/Container'
 import { FloatingInput } from '@/components/ui/FloatingInput'
 import { FloatingSelect } from '@/components/ui/FloatingSelect'
 import { FloatingTextarea } from '@/components/ui/FloatingTextarea'
+import { FadeIn } from '@/components/motion/FadeIn'
+import { Reveal } from '@/components/ui/Reveal'
 import { PageHero } from '@/components/ui/PageHero'
 import { Seo } from '@/components/ui/Seo'
 
@@ -80,9 +82,10 @@ export function ContactPage() {
       <section className="bg-canvas py-16 lg:py-24">
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-7">
-              <div className="rounded-2xl border border-hairline bg-surface p-6 shadow-soft sm:p-10">
+            <Reveal className="lg:col-span-7">
+              <div className="contact-panel">
                 {submitState === 'success' ? (
+                  <FadeIn>
                   <div ref={statusRef} tabIndex={-1} role="status" className="outline-none">
                     <h2 className="display-md text-heading">
                       {successMode === 'api' ? 'Thank you—your message is on its way.' : 'Almost done—please send the email.'}
@@ -107,6 +110,7 @@ export function ContactPage() {
                       {successMode === 'api' ? 'Send another message' : 'Back to the form'}
                     </button>
                   </div>
+                  </FadeIn>
                 ) : (
                   <form onSubmit={onSubmit} className="flyon-form space-y-5" noValidate aria-labelledby="form-heading">
                     <h2 id="form-heading" className="text-xl font-semibold text-heading">
@@ -196,7 +200,7 @@ export function ContactPage() {
                       <button
                         type="submit"
                         disabled={submitState === 'loading'}
-                        className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-blue-corporate px-6 text-[0.9375rem] font-medium text-white transition-colors hover:bg-navy-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-corporate disabled:opacity-60"
+                        className="btn-animate inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-blue-corporate px-6 text-[0.9375rem] font-medium text-white shadow-[0_1px_2px_rgb(11_23_48/0.08),0_4px_12px_-4px_rgb(23_70_162/0.35)] transition-[color,background-color,transform,box-shadow] duration-300 hover:bg-blue-corporate-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-corporate disabled:opacity-60"
                       >
                         {submitState === 'loading' && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
                         {backendConfigured ? 'Send enquiry' : 'Continue in email app'}
@@ -208,9 +212,10 @@ export function ContactPage() {
                   </form>
                 )}
               </div>
-            </div>
+            </Reveal>
 
-            <aside className="lg:col-span-4 lg:col-start-9" aria-label="Contact information">
+            <Reveal delay={0.08} className="lg:col-span-4 lg:col-start-9">
+            <aside aria-label="Contact information">
               <h2 className="eyebrow text-muted">What happens next</h2>
               <ol className="mt-6 space-y-6">
                 {nextSteps.map((s, i) => (
@@ -244,6 +249,7 @@ export function ContactPage() {
                 </ul>
               </div>
             </aside>
+            </Reveal>
           </div>
         </Container>
       </section>

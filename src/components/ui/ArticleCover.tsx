@@ -3,13 +3,15 @@ import { useId } from 'react'
 interface ArticleCoverProps {
   category: string
   className?: string
+  image?: string
+  alt?: string
 }
 
 const stroke = { fill: 'none', stroke: 'rgba(255,255,255,0.35)', strokeWidth: 1.25 }
 const box = { fill: 'rgba(255,255,255,0.04)', stroke: 'rgba(255,255,255,0.22)', strokeWidth: 1.25, rx: 6 }
 const accentBox = { fill: 'rgba(61,121,242,0.22)', stroke: '#3D79F2', strokeWidth: 1.5, rx: 6 }
 
-function Architecture() {
+function ArchitectureIllustration() {
   return (
     <>
       <rect x="150" y="40" width="100" height="36" {...accentBox} />
@@ -23,7 +25,7 @@ function Architecture() {
   )
 }
 
-function Modernization() {
+function ModernizationIllustration() {
   return (
     <>
       <rect x="40" y="70" width="110" height="110" {...box} strokeDasharray="4 4" />
@@ -45,7 +47,7 @@ function Modernization() {
   )
 }
 
-function Automation() {
+function AutomationIllustration() {
   return (
     <>
       <rect x="40" y="80" width="70" height="90" {...box} />
@@ -63,23 +65,61 @@ function Automation() {
   )
 }
 
-export function ArticleCover({ category, className = '' }: ArticleCoverProps) {
+function IllustrationFallback({ category }: { category: string }) {
   const gradientId = `cover${useId().replace(/[^a-zA-Z0-9]/g, '')}`
   const art =
-    category === 'Modernization' ? <Modernization /> : category.startsWith('AI') ? <Automation /> : <Architecture />
+    category === 'Modernization' ? (
+      <ModernizationIllustration />
+    ) : category.startsWith('AI') ? (
+      <AutomationIllustration />
+    ) : (
+      <ArchitectureIllustration />
+    )
 
   return (
-    <div className={`overflow-hidden rounded-xl bg-navy-900 ${className}`} aria-hidden="true">
-      <svg viewBox="0 0 400 250" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
-        <rect width="400" height="250" fill={`url(#${gradientId})`} />
-        <defs>
-          <radialGradient id={gradientId} cx="0.8" cy="0" r="1">
-            <stop offset="0" stopColor="#1C3157" />
-            <stop offset="1" stopColor="#142544" />
-          </radialGradient>
-        </defs>
-        {art}
-      </svg>
+    <svg
+      viewBox="0 0 400 250"
+      className="h-full w-full"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+    >
+      <rect width="400" height="250" fill={`url(#${gradientId})`} />
+      <defs>
+        <radialGradient id={gradientId} cx="0.8" cy="0" r="1">
+          <stop offset="0" stopColor="#1C3157" />
+          <stop offset="1" stopColor="#142544" />
+        </radialGradient>
+      </defs>
+      {art}
+    </svg>
+  )
+}
+
+export function ArticleCover({ category, className = '', image, alt }: ArticleCoverProps) {
+  if (image) {
+    return (
+      <div className={`article-cover relative overflow-hidden rounded-xl bg-navy-900 ${className}`}>
+        <img
+          src={image}
+          alt={alt ?? ''}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/25 via-transparent to-transparent"
+          aria-hidden="true"
+        />
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className={`article-cover overflow-hidden rounded-xl bg-navy-900 ${className}`}
+      aria-hidden="true"
+    >
+      <IllustrationFallback category={category} />
     </div>
   )
 }

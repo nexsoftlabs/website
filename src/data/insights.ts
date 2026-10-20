@@ -6,6 +6,14 @@ export const insights: InsightArticle[] = [
     category: 'Architecture',
     readingTimeMinutes: 8,
     publishedAt: '2025-09-12',
+    coverImage: '/insights/architecture-for-growing-saas.jpg',
+    coverImageAlt:
+      'Engineering team planning SaaS architecture on a whiteboard with sprint columns and technical goals',
+    coverCredit: {
+      photographer: 'Austin Distel',
+      profileUrl: 'https://unsplash.com/@austindistel',
+      source: 'Unsplash',
+    },
     title: 'How to Choose the Right Architecture for a Growing SaaS Product',
     summary:
       'Early architectural choices shape how fast you can ship, how safely you can scale, and how painful migrations become later. Here is a practical framework for growing products.',
@@ -58,6 +66,14 @@ export const insights: InsightArticle[] = [
     category: 'Modernization',
     readingTimeMinutes: 7,
     publishedAt: '2025-09-28',
+    coverImage: '/insights/when-to-modernize-legacy.jpg',
+    coverImageAlt:
+      'Performance analytics dashboard with load-time and engagement metrics for evaluating a legacy platform',
+    coverCredit: {
+      photographer: 'Lukas Blazek',
+      profileUrl: 'https://unsplash.com/@goumbik',
+      source: 'Unsplash',
+    },
     title: 'When Should a Business Modernize Its Legacy Application?',
     summary:
       'Modernization is expensive when mistimed and costly when delayed. Learn signals that indicate when incremental change beats a big-bang rewrite.',
@@ -101,6 +117,14 @@ export const insights: InsightArticle[] = [
     category: 'AI & Automation',
     readingTimeMinutes: 6,
     publishedAt: '2025-10-05',
+    coverImage: '/insights/practical-ai-in-workflows.jpg',
+    coverImageAlt:
+      'Software developers working at desks with application code on screen in a shared engineering office',
+    coverCredit: {
+      photographer: 'Dylan Gillis',
+      profileUrl: 'https://unsplash.com/@dylandgillis',
+      source: 'Unsplash',
+    },
     title: 'Practical Ways to Introduce AI into Existing Workflows',
     summary:
       'Useful AI adoption starts with workflow clarity, not model hype. A grounded approach to automation that keeps humans in the loop.',

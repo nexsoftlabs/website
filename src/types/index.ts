@@ -41,6 +41,11 @@ export interface InsightArticle {
   summary: string
   /** ISO date (YYYY-MM-DD) for SEO / Article schema */
   publishedAt: string
+  /** Local path under public/ or absolute URL — copyright-free stock photo */
+  coverImage: string
+  coverImageAlt: string
+  /** Optional Unsplash/Pexels attribution (license often does not require it) */
+  coverCredit?: { photographer: string; profileUrl: string; source: 'Unsplash' | 'Pexels' }
   body: InsightBlock[]
 }
 

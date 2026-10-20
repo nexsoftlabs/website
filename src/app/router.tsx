@@ -32,7 +32,11 @@ const NotFoundPage = lazy(() =>
 
 function PageLoader() {
   return (
-    <div className="flex min-h-[40vh] items-center justify-center text-sm text-muted">
+    <div className="flex min-h-[40vh] flex-col items-center justify-center gap-3 text-sm text-muted">
+      <span
+        className="h-8 w-8 animate-spin rounded-full border-2 border-hairline border-t-brand motion-reduce:animate-none"
+        aria-hidden="true"
+      />
       Loading…
     </div>
   )

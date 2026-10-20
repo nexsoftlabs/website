@@ -148,7 +148,7 @@ export function ServiceDetailPage() {
                 </Link>
               </Reveal>
               <Reveal delay={0.1} className="lg:col-span-7">
-                <div className="rounded-2xl bg-surface-sunken p-4 sm:p-8" aria-hidden="true">
+                <div className="mockup-stage" aria-hidden="true">
                   <ConceptMockup id={concept.id} />
                 </div>
               </Reveal>

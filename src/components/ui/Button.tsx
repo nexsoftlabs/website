@@ -38,13 +38,14 @@ type ButtonProps = ButtonAsButton | ButtonAsLink | ButtonAsAnchor
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-blue-corporate text-white hover:bg-blue-corporate-hover border border-blue-corporate hover:border-blue-corporate-hover',
+    'bg-blue-corporate text-white hover:bg-blue-corporate-hover border border-blue-corporate hover:border-blue-corporate-hover shadow-[0_1px_2px_rgb(11_23_48/0.08),0_4px_12px_-4px_rgb(23_70_162/0.35)]',
   secondary:
-    'bg-surface text-heading border border-hairline hover:border-heading/30',
+    'bg-surface text-heading border border-hairline hover:border-heading/20 shadow-[0_1px_2px_rgb(11_23_48/0.04)]',
   ghost: 'bg-transparent text-heading border border-transparent hover:bg-surface-sunken',
   'outline-light':
     'bg-transparent text-white border border-white/25 hover:border-white/60 hover:bg-white/5',
-  light: 'bg-white text-navy-950 border border-white hover:bg-[#e8eef8] hover:border-[#e8eef8]',
+  light:
+    'bg-white text-navy-950 border border-white hover:bg-[#f0f4fa] hover:border-[#f0f4fa] shadow-[0_2px_8px_-2px_rgb(0_0_0/0.2)]',
 }
 
 const sizes: Record<Size, string> = {
@@ -55,7 +56,7 @@ const sizes: Record<Size, string> = {
 
 export function Button(props: ButtonProps) {
   const { children, variant = 'primary', size = 'md', className = '', arrow = false } = props
-  const classes = `group/btn inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60 ${variants[variant]} ${sizes[size]} ${className}`
+  const classes = `group/btn btn-animate inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap transition-[color,background-color,border-color,transform,box-shadow] duration-300 disabled:cursor-not-allowed disabled:opacity-60 ${variants[variant]} ${sizes[size]} ${className}`
 
   const content = (
     <>

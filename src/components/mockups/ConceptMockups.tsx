@@ -6,7 +6,7 @@ const card = 'rounded-[0.7em] border border-[#e6ecf3] bg-white'
 
 function AppFrame({ title, tag, children }: { title: string; tag: string; children: ReactNode }) {
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-[1em] bg-[#f6f8fb] text-[#0b1730] shadow-mockup ring-1 ring-[#0b1730]/5">
+    <div className="flex h-full flex-col overflow-hidden rounded-[1em] bg-white text-[#0b1730] shadow-mockup ring-1 ring-[#0b1730]/8">
       <div className="flex h-[3.6em] shrink-0 items-center gap-[0.8em] border-b border-[#e6ecf3] bg-white px-[1.5em]">
         <span className="grid h-[1.7em] w-[1.7em] place-items-center rounded-[0.45em] bg-[#0b1730]">
           <span className="h-[0.65em] w-[0.65em] rounded-full bg-blue-electric" />
@@ -85,7 +85,7 @@ function SaasMockup() {
 function Phone({ children }: { children: ReactNode }) {
   return (
     <div className="h-full rounded-[2.4em] bg-[#0b1730] p-[0.5em] shadow-mockup">
-      <div className="flex h-full flex-col overflow-hidden rounded-[2em] bg-[#f4f7fb] px-[1.2em] pt-[1.1em] pb-[1.2em] text-[#0b1730]">
+      <div className="flex h-full flex-col overflow-hidden rounded-[2em] bg-white px-[1.2em] pt-[1.1em] pb-[1.2em] text-[#0b1730]">
         <div className="mx-auto mb-[1em] h-[1.2em] w-[4.4em] rounded-full bg-[#0b1730]" />
         {children}
       </div>
@@ -96,7 +96,7 @@ function Phone({ children }: { children: ReactNode }) {
 function PortalMockup() {
   const bars = [46, 58, 52, 70, 64, 48, 40]
   return (
-    <div className="flex h-full items-center justify-center gap-[2.4em] rounded-[1em] bg-[#e9eef6] p-[1.8em]">
+    <div className="flex h-full items-center justify-center gap-[2.4em] bg-transparent p-[0.4em]">
       <div className="h-full w-[19em]">
         <Phone>
           <p className="text-[0.8em] text-[#64748b]">Good morning, Priya</p>

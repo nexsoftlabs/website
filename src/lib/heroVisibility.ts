@@ -19,17 +19,32 @@ export function useDarkHeroUnderHeader() {
   return useSyncExternalStore(subscribe, () => underHeader, () => false)
 }
 
+/** True while the hero’s upper band is still behind the sticky header (~first screen of the hero). */
+function heroUnderHeader(node: HTMLElement, headerHeight: number) {
+  const rect = node.getBoundingClientRect()
+  const heroBand = Math.min(120, Math.max(headerHeight, node.offsetHeight * 0.12))
+  return rect.top <= headerHeight && rect.top > -heroBand
+}
+
 export function useRegisterDarkHero(ref: RefObject<HTMLElement | null>, headerHeight = 72) {
   useEffect(() => {
     const node = ref.current
     if (!node) return
-    const observer = new IntersectionObserver(([entry]) => set(entry.isIntersecting), {
-      rootMargin: `0px 0px -${Math.max(0, window.innerHeight - headerHeight - 8)}px 0px`,
-      threshold: 0,
-    })
-    observer.observe(node)
+
+    const update = () => set(heroUnderHeader(node, headerHeight))
+
+    update()
+    requestAnimationFrame(() => update())
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(update) : null
+    ro?.observe(node)
+
     return () => {
-      observer.disconnect()
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+      ro?.disconnect()
       set(false)
     }
   }, [ref, headerHeight])

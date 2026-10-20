@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { Footer } from '@/components/layout/Footer'
 import { Navbar } from '@/components/layout/Navbar'
 import { RouteScrollManager } from '@/components/layout/RouteScrollManager'
+import { PageTransition } from '@/components/motion/PageTransition'
+import { ScrollProgress } from '@/components/motion/ScrollProgress'
 
 async function loadFlyonUI() {
   await import('flyonui/flyonui')
@@ -24,10 +26,11 @@ export function MainLayout() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <ScrollProgress />
       <RouteScrollManager />
       <Navbar />
       <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
-        <Outlet />
+        <PageTransition />
       </main>
       <Footer />
     </div>
