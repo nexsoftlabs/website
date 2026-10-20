@@ -54,7 +54,7 @@ export function HeroAIField() {
 
   return (
     <div className="hero-ai-field pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <div className="hero-ai-scan absolute inset-y-0 w-[min(28vw,220px)]" />
+      <div className="hero-ai-scan absolute inset-y-0 left-0 w-[min(28vw,220px)] will-change-transform" />
 
       <svg
         className="absolute inset-0 h-full w-full opacity-[0.55] sm:opacity-65"

@@ -85,10 +85,10 @@ export function HeroSection() {
         </div>
       </Container>
 
-      <div className="relative z-10 border-t border-white/[0.08]">
+      <div className="relative z-10 overflow-x-clip border-t border-white/[0.08]">
         <Container>
           <nav aria-label="What we build">
-            <ul className="-mx-2 flex snap-x gap-1 overflow-x-auto py-4 [scrollbar-width:none] lg:justify-between lg:overflow-visible [&::-webkit-scrollbar]:hidden">
+            <ul className="-mx-2 flex snap-x gap-1 overflow-x-auto py-4 [scrollbar-width:none] lg:mx-0 lg:justify-between lg:overflow-visible [&::-webkit-scrollbar]:hidden">
               {featuredServices.map((service) => (
                 <li key={service.slug} className="shrink-0 snap-start">
                   <Link

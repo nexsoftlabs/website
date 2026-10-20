@@ -64,11 +64,11 @@ export function ShowcaseSection() {
           </Reveal>
         </div>
 
-        <Reveal className="mt-12 lg:mt-16">
+        <Reveal className="mt-12 overflow-x-clip lg:mt-16">
           <div
             role="tablist"
             aria-label="Illustrative concepts"
-            className="-mx-5 flex gap-1 overflow-x-auto border-b border-hairline px-5 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
+            className="-mx-5 flex gap-1 overflow-x-auto border-b border-hairline px-5 [scrollbar-width:none] sm:mx-0 sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
           >
             {showcaseTabs.map((t, i) => {
               const selected = t.id === active

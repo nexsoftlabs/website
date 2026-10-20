@@ -62,6 +62,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    overflow-x: clip;
   }
 
   html[data-theme='dark'] {
@@ -100,6 +101,7 @@
     @apply bg-canvas font-sans text-body antialiased;
     font-feature-settings: 'ss01', 'cv11';
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
   ::selection {
@@ -386,10 +388,10 @@
   @keyframes hero-ai-scan {
     0%,
     100% {
-      transform: translateX(-120%);
+      transform: translate3d(-100%, 0, 0);
     }
     50% {
-      transform: translateX(420%);
+      transform: translate3d(320%, 0, 0);
     }
   }
 

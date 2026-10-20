@@ -215,15 +215,15 @@ export function Navbar() {
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-md focus:bg-surface focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-heading focus:shadow-lg"
+        className="fixed top-3 left-3 z-[60] rounded-md bg-surface px-4 py-2 text-sm font-medium text-heading shadow-lg transition-[transform,opacity] duration-200 -translate-y-[calc(100%+1.25rem)] opacity-0 focus:translate-y-0 focus:opacity-100"
       >
         Skip to content
       </a>
       <header
         className={`sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-300 ${headerTone}`}
       >
-        <Container className="flex h-[72px] items-center justify-between gap-6">
-          <Logo variant={surface === 'dark' ? 'light' : 'dark'} />
+        <Container className="flex h-[72px] min-w-0 items-center justify-between gap-2 sm:gap-6">
+          <Logo variant={surface === 'dark' ? 'light' : 'dark'} className="min-w-0 shrink" />
 
           <nav className="hidden lg:block" aria-label="Primary">
             <ul className="flex items-center gap-9">
@@ -260,8 +260,8 @@ export function Navbar() {
             </Button>
           </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
-            <span className="hidden min-[360px]:block">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 lg:hidden">
+            <span className="hidden min-[380px]:block">
               <Button to="/contact" size="sm" variant={surface === 'dark' ? 'light' : 'primary'}>
                 Let&apos;s Talk
               </Button>

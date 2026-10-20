@@ -64,12 +64,12 @@ export function Logo({ variant = 'dark', className = '', onClick }: LogoProps) {
     <Link
       to="/"
       onClick={onClick}
-      className={`group inline-flex items-center gap-3.5 rounded-md sm:gap-4 ${className}`}
+      className={`group inline-flex min-w-0 items-center gap-2.5 rounded-md sm:gap-4 ${className}`}
       aria-label="NexSoft Labs — home"
     >
       <LogoMark className="h-9 w-9 shrink-0 shadow-[0_2px_10px_-2px_rgb(11_23_48/0.4)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] sm:h-10 sm:w-10 motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
       <span className="inline-flex items-baseline gap-2.5 whitespace-nowrap sm:gap-3">
-        <span className={`text-lg leading-none font-semibold tracking-[-0.04em] sm:text-xl ${primary}`}>
+        <span className={`text-base leading-none font-semibold tracking-[-0.04em] sm:text-xl ${primary}`}>
           Nex<span className={accent}>Soft</span>
         </span>
         <span className={`h-4 w-px self-center sm:h-5 ${divider}`} aria-hidden="true" />
