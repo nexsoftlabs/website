@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronDown, Menu } from 'lucide-react'
+import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react'
 import {
   useCallback,
   useEffect,
@@ -220,7 +220,7 @@ export function Navbar() {
         Skip to content
       </a>
       <header
-        className={`sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-300 ${headerTone}`}
+        className={`sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-300 ${mobileOpen ? 'z-[110]' : ''} ${headerTone}`}
       >
         <Container className="flex h-[72px] min-w-0 items-center justify-between gap-2 sm:gap-6">
           <Logo variant={surface === 'dark' ? 'light' : 'dark'} className="min-w-0 shrink" />
@@ -269,15 +269,23 @@ export function Navbar() {
             <button
               ref={menuButtonRef}
               type="button"
-              className={`inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors ${
-                surface === 'dark' ? 'text-white hover:bg-white/10' : 'text-heading hover:bg-surface-sunken'
+              className={`relative z-[111] inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg transition-colors ${
+                surface === 'dark'
+                  ? mobileOpen
+                    ? 'bg-white/10 text-white'
+                    : 'text-white hover:bg-white/10'
+                  : 'text-heading hover:bg-surface-sunken'
               }`}
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"
-              aria-label="Open menu"
-              onClick={() => setMobileOpen(true)}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              onClick={() => setMobileOpen((open) => !open)}
             >
-              <Menu className="h-6 w-6" aria-hidden="true" />
+              {mobileOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </Container>
