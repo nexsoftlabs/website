@@ -1,11 +1,10 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, X } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, NavLink } from 'react-router-dom'
 import { featuredServices } from '@/data/services'
 import { Button } from '@/components/ui/Button'
-import { Logo } from '@/components/ui/Logo'
 import { ServiceGlyph } from '@/components/ui/ServiceGlyph'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 
@@ -114,20 +113,8 @@ export function MobileNavigation({ open, onClose }: MobileNavigationProps) {
             exit={reduceMotion ? undefined : { x: '100%' }}
             transition={{ duration: 0.32, ease: panelEase }}
           >
-            <div className="flex h-14 shrink-0 items-center justify-between border-b border-hairline px-4 sm:h-[72px] sm:px-5">
-              <Logo variant="dark" onClick={onClose} className="min-w-0 shrink" />
-              <button
-                type="button"
-                onClick={onClose}
-                className="inline-flex h-11 w-11 shrink-0 touch-manipulation items-center justify-center rounded-lg text-heading hover:bg-surface-sunken active:bg-surface-sunken"
-                aria-label="Close menu"
-              >
-                <X className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-
             <nav
-              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-4 py-5 sm:px-5 sm:py-6"
+              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain border-t border-hairline px-4 py-5 sm:px-5 sm:py-6"
               aria-label="Mobile"
             >
               <p className="eyebrow mb-3 text-muted">Services</p>

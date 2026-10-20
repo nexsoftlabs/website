@@ -261,7 +261,7 @@ export function Navbar() {
           </div>
 
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 lg:hidden">
-            <span className="hidden min-[380px]:block">
+            <span className={`hidden min-[380px]:block ${mobileOpen ? 'max-lg:hidden' : ''}`}>
               <Button to="/contact" size="sm" variant={surface === 'dark' ? 'light' : 'primary'}>
                 Let&apos;s Talk
               </Button>
